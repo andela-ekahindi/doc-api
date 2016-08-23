@@ -1,0 +1,22 @@
+{
+  "name": "doc-api",
+  "version": "1.0.0",
+  "description": "This is a document api",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andela-ekahindi/doc-api.git"
+  },
+  "author": "Esther Dama Kahindi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andela-ekahindi/doc-api/issues"
+  },
+  "homepage": "https://github.com/andela-ekahindi/doc-api#readme"
+}
