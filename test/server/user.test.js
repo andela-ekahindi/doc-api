@@ -5,7 +5,7 @@ var app = require('../../server.js');
 
 describe('User', function () {
 	it('should validates that a new user created is unique', function (done) {
-		
+
 	});
 
 	it('should validates that a new user created has a role defined', function (done) {
@@ -16,7 +16,7 @@ describe('User', function () {
 		
 	});
 
-	it('should validates that all users are returned', function() {
+	it('should validates that all users are returned', function(done) {
 		
 	});
 });

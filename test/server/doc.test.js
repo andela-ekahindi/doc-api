@@ -16,7 +16,7 @@ describe('Document', function () {
 		
 	});
 	
-	it('should validates that all documents are returned in order of their published dates, starting from the most recent when Documents.all is called', function() {
+	it('should validates that all documents are returned in order of their published dates, starting from the most recent when Documents.all is called', function(done) {
 		
 	});
 });

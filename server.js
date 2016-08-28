@@ -17,3 +17,4 @@ app.listen(port, function onStart(err) {
   console.info('==> 🌎 Listening on port %s. Open up http://127.0.0.1:%s/ ', port, port);
 });
 
+module.exports = app;
