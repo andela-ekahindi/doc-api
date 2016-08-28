@@ -1,11 +1,13 @@
 var express = require('express');
-
+var bodyParser = require('body-parser');
 
 var app = express();
+app.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
 var port = process.env.PORT || 5000;
 
 app.get('/', function (req, res) {
-	res.send('Begin CheckPoint');
+	res.json({"message" :'Begin CheckPoint', "error":false});
 });
 
 app.listen(port, function onStart(err) {
