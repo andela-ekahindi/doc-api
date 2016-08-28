@@ -21,6 +21,9 @@
   "homepage": "https://github.com/andela-ekahindi/doc-api#readme",
   "dependencies": {
     "express": "^4.14.0",
-    "mongoose": "^4.5.9"
+    "mongoose": "^4.5.10"
+  },
+  "devDependencies": {
+    "supertest": "^2.0.0"
   }
 }

@@ -1,0 +1,13 @@
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var RoleSchema = new Schema({
+	title: {
+		type: String,
+		required: true,
+		unique : true,
+		dropDups: true
+	}
+});
+
+module.exports = mongoose.model('Role', RoleSchema);
