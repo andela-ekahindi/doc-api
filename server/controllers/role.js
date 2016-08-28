@@ -2,7 +2,7 @@ var Role = require('../models/role');
 var bodyParser = require('body-parser');
 
 var RoleCtrl = {
-	CreateOnerole:function (req, res) {
+	CreateOneRole:function (req, res) {
 		var role = new Role();
 		role.title = req.body.title;
 		
@@ -14,7 +14,7 @@ var RoleCtrl = {
             }
         });
 	},
-	GetAllroles: function (req, res) {
+	GetAllRoles: function (req, res) {
 		Role.find(function(err, roles){
             if(err){
             	res.json({status: false, error: "Something went wrong"});
@@ -23,7 +23,7 @@ var RoleCtrl = {
             }
         });
 	},
-	GetOnerole:function (req, res) {
+	GetOneRole:function (req, res) {
 		Role.findById(req.params.role_id, function (err, role) {
             if (err){
                 res.send(err);
@@ -33,7 +33,7 @@ var RoleCtrl = {
     	});
 	},
 
-	DeleteOnerole: function(req, res){
+	DeleteOneRole: function(req, res){
         Role.remove({_id: req.params.id}, function(err, role){
             if(err) {
             	res.json({status: false, error: "Deleting role did not happen"});

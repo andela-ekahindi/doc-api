@@ -25,7 +25,7 @@ var DocumentCtrl = {
         });
 	},
 	GetOneDoc:function (req, res) {
-		Document.findById(req.params.doc_id, function (err, doc) {
+		Document.findById(req.params.id, function (err, doc) {
             if (err){
                 res.send(err);
             }else{
