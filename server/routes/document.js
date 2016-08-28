@@ -2,7 +2,6 @@ var express = require('express');
 var mongoose = require('mongoose');
 
 var router = express.Router();
-var Document = require('../models/document');
 var DocumentCtrl = require('../controllers/document');
 
 router.use(function(req, res, next) {

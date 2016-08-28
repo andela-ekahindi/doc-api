@@ -6,9 +6,11 @@ var DocumentCtrl = {
 		var doc = new Document();
 		doc.title = req.body.title;
 		doc.content = req.body.content;
+        doc.ownerId = req.body.ownerId;
 		
         doc.save(function(err, todo){
           	if(err) {
+                console.log(err);
                 res.json({status: false, error: "Something went wrong"});
             } else {
             	res.json({status: true, message: "Document Saved"});

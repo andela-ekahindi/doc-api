@@ -2,7 +2,6 @@ var express = require('express');
 var mongoose = require('mongoose');
 
 var router = express.Router();
-var Role = require('../models/role');
 var RoleCtrl = require('../controllers/role');
 
 router.use(function(req, res, next) {
@@ -11,11 +10,11 @@ router.use(function(req, res, next) {
 }); 
 
 
-router.route('/documents')
+router.route('/roles')
 	.post(RoleCtrl.CreateOneRole)
 	.get(RoleCtrl.GetAllRoles);
 
-router.route('/documents/:id')
+router.route('/roles/:id')
 	.get(RoleCtrl.GetOneRole)
 	.delete(RoleCtrl.DeleteOneRole);
 

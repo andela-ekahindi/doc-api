@@ -2,7 +2,6 @@ var express = require('express');
 var mongoose = require('mongoose');
 
 var router = express.Router();
-var User = require('../models/user');
 var UserCtrl = require('../controllers/user');
 
 router.use(function(req, res, next) {
@@ -11,11 +10,11 @@ router.use(function(req, res, next) {
 }); 
 
 
-router.route('/documents')
+router.route('/users')
 	.post(UserCtrl.CreateOneUser)
 	.get(UserCtrl.GetAllUsers);
 
-router.route('/documents/:id')
+router.route('/users/:id')
 	.get(UserCtrl.GetOneUser)
 	.delete(UserCtrl.DeleteOneUser);
 

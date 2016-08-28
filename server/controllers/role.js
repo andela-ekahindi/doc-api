@@ -24,7 +24,7 @@ var RoleCtrl = {
         });
 	},
 	GetOneRole:function (req, res) {
-		Role.findById(req.params.role_id, function (err, role) {
+		Role.findById(req.params.id, function (err, role) {
             if (err){
                 res.send(err);
             }else{
