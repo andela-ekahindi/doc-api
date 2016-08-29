@@ -6,7 +6,7 @@ var roles = require('./server/routes/role');
 var users = require('./server/routes/user');
 
 var app = express();
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 

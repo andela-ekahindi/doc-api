@@ -4,6 +4,20 @@ var expect = chai.expect;
 var app = require('../../server.js');
 
 describe('Document', function () {
+	it('GET all documents api/documents', function (done) {
+		request(app)
+			.get('/api/documents/')
+			.expect('Content-Type', /json/)
+			.expect(200)
+			.end(function (err,res) {
+				expect(res.status).to.equal(200);
+				
+			    // // Error key should be false.
+			    // res.body.error.should.equal(false);
+			    // expect(true).to.equal(true);
+			    done();
+			});
+	});
 	it('should validates that a new user document created has a published date defined', function (done) {
 		
 	});

@@ -4,6 +4,15 @@ var expect = chai.expect;
 var app = require('../../server.js');
 
 describe('User', function () {
+	it('should create a new user', function (done) {
+		request(app)
+			.get('/api/users/')
+			.expect('Content-Type', /json/)
+			.expect(200)
+			.end(function (err,res) {
+				// body...
+			});
+	});
 	it('should validates that a new user created is unique', function (done) {
 
 	});
