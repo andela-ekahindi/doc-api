@@ -1,5 +1,4 @@
 var Document = require('../models/document');
-var bodyParser = require('body-parser');
 
 var DocumentCtrl = {
 	CreateOneDoc:function (req, res) {
@@ -7,7 +6,7 @@ var DocumentCtrl = {
 		doc.title = req.body.title;
 		doc.content = req.body.content;
         doc.ownerId = req.body.ownerId;
-		
+
         doc.save(function(err, todo){
           	if(err) {
                 console.log(err);
@@ -35,6 +34,30 @@ var DocumentCtrl = {
             }
     	});
 	},
+    UpdateOneDoc: function (req, res) {
+        Document.findById(req.params.id, function (err, doc) {
+            if (err){
+                res.send(err);
+            }
+            else{
+                if(req.body.title){
+                    doc.title = req.body.title;
+                }
+                if(req.body.content){
+                    doc.content = req.body.content;
+                }
+                doc.modifiedAt = Date.now();
+                doc.update(function (err) {
+                    if(err){
+                        res.send(err);
+                    }else{
+                        res.send({message: "Doc Updated", document: doc});
+                    }
+                });
+            }
+
+        });
+    },
 
 	DeleteOneDoc: function(req, res){
         Document.remove({_id: req.params.id}, function(err, doc){

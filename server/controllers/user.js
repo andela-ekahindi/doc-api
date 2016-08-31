@@ -1,5 +1,9 @@
 var User = require('../models/user');
 var bodyParser = require('body-parser');
+var jwt    = require('jsonwebtoken');
+// var config = require('./config/config.js');
+
+
 
 var UserCtrl = {
 	CreateOneUser:function (req, res) {
@@ -43,6 +47,27 @@ var UserCtrl = {
             	res.json({status: false, error: "Deleting User did not happen"});
             }else{
             	res.json({status: true, message: "Deleted successfully"});
+            }
+        });
+    },
+    LoginUser:function (req, res) {
+        User.findOne({username : req.body.username}, function (err, user) {
+            if(err){
+                res.send(err);
+            }else if(!user){
+                res.json({status: false, error: "User not Found"});
+            }else if(user){
+                if(user.password != req.body.password){
+                    res.json({status:false, error:"Wrong password"});
+                }
+                else{
+                    //if user is found then create a token
+                    var token = jwt.sign(user, req.app.get('Secret'),{
+                        expiresIn: "14d"
+                    });
+                    res.json({status:true, message:"You are Login in", token: token, user:user});
+                }
+
             }
         });
     }

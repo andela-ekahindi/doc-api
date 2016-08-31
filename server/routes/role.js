@@ -16,6 +16,7 @@ router.route('/roles')
 
 router.route('/roles/:id')
 	.get(RoleCtrl.GetOneRole)
+	.put(RoleCtrl.UpdateOneRole)
 	.delete(RoleCtrl.DeleteOneRole);
 
 module.exports = router;

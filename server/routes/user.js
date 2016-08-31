@@ -3,19 +3,28 @@ var mongoose = require('mongoose');
 
 var router = express.Router();
 var UserCtrl = require('../controllers/user');
+var LoginCtrl = require('../controllers/auth');
+// router.set('Secret', config.secret); // secret variable
 
-router.use(function(req, res, next) {
-    // do logging
-    next(); // make sure we go to the next routes and don't stop here
-}); 
+router.route('/users/login')
+	.post(UserCtrl.LoginUser);
+
+router.route('/users')
+	.post(UserCtrl.CreateOneUser);
+
+//middleware to the protect the API routes
+//without we cant access the routes below
+
+
+router.use(LoginCtrl.Login); 
 
 
 router.route('/users')
-	.post(UserCtrl.CreateOneUser)
 	.get(UserCtrl.GetAllUsers);
 
 router.route('/users/:id')
 	.get(UserCtrl.GetOneUser)
 	.delete(UserCtrl.DeleteOneUser);
+
 
 module.exports = router;

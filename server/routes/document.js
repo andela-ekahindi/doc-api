@@ -16,6 +16,7 @@ router.route('/documents')
 
 router.route('/documents/:id')
 	.get(DocumentCtrl.GetOneDoc)
+	.put(DocumentCtrl.UpdateOneDoc)
 	.delete(DocumentCtrl.DeleteOneDoc);
 
 module.exports = router;
