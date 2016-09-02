@@ -14,7 +14,7 @@ var LoginCtrl = {
 		      if (err) {
 		        return res.json({ success: false, message: 'Failed to authenticate token.' });    
 		      } else {
-		      	
+		      	console.log('here: ', decoded);
 		        // if everything is good, save to request for use in other routes
 		        req.decoded = decoded;    
 		        next();
