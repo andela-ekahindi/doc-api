@@ -24,11 +24,11 @@ describe('Search', function (done) {
 			    done();
 			});
 	});
-	it('should validates that all documents, limited by a specified number and ordered by published date, that can be accessed by a specified role.', function (done) {
+	// it('should validates that all documents, limited by a specified number and ordered by published date, that can be accessed by a specified role.', function (done) {
 		
-	});
+	// });
 
-	it('should validates that all documents, limited by a specified number, that were published on a certain date', function (done) {
+	// it('should validates that all documents, limited by a specified number, that were published on a certain date', function (done) {
 		
-	});
+	// });
 });

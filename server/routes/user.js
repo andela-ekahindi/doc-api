@@ -3,8 +3,7 @@ var mongoose = require('mongoose');
 
 var router = express.Router();
 var UserCtrl = require('../controllers/user');
-var LoginCtrl = require('../controllers/auth');
-// router.set('Secret', config.secret); // secret variable
+var AuthCtrl = require('../controllers/auth');
 
 router.route('/users/login')
 	.post(UserCtrl.LoginUser);
@@ -16,7 +15,7 @@ router.route('/users')
 //without we cant access the routes below
 
 
-router.use(LoginCtrl.Login); 
+router.use(AuthCtrl.Auth); 
 
 
 router.route('/users')
@@ -25,6 +24,9 @@ router.route('/users')
 router.route('/users/:id')
 	.get(UserCtrl.GetOneUser)
 	.delete(UserCtrl.DeleteOneUser);
+
+router.route('/users/logout')
+	.post(UserCtrl.LogoutUser);
 
 
 module.exports = router;

@@ -1,22 +1,39 @@
-var fakeDocument = {
-	User1: fakery.fake('role2', mongoose.model('Role'), 
-						{title: 'SuperUser'}),
-	User2: fakery.fake('role1', mongoose.model('Role'), 
-						{title: 'Admin'}),
-	User3: fakery.fake('role2', mongoose.model('Role'), 
-						{title: 'User'}),
-	User4: fakery.fake('role2', mongoose.model('Role'), 
-						{title: 'SuperUser'}),
-	User5: fakery.fake('role1', mongoose.model('Role'), 
-						{title: 'Admin'}),
-	User6: fakery.fake('role2', mongoose.model('Role'), 
-						{title: 'User'}),
-	User7: fakery.fake('role2', mongoose.model('Role'), 
-						{title: 'User'}),
-	User8: fakery.fake('role2', mongoose.model('Role'), 
-						{title: 'SuperUser'}),
-	User9: fakery.fake('role1', mongoose.model('Role'), 
-						{title: 'Admin'}),
-	User10: fakery.fake('role2', mongoose.model('Role'), 
-						{title: 'User'}),
+var fakeUser = {
+	User1: {username: 'User1',
+			name: {first: 'User1firstname',
+					last: 'User1lastname'
+				},
+			email: 'User1firstname@example.com',
+			password: 'User1'
+			},
+	User2: {username: 'User2',
+			name: {first: 'User2firstname',
+					last: 'User2lastname'
+				},
+			email: 'User2firstname@example.com',
+			password: 'User2'
+			},
+	User3: {username: 'User3',
+			name: {first: 'User3firstname',
+					last: 'User3lastname'
+				},
+			email: 'User3firstname@example.com',
+			password: 'User3'
+			},
+	User4: {username: 'User4',
+			name: {first: 'User4firstname',
+					last: 'User4lastname'
+				},
+			email: 'User4firstname@example.com',
+			password: 'User4'
+			},
+	User5: {username: 'User5',
+			name: {first: 'User5firstname',
+					last: 'User5lastname'
+				},
+			email: 'User5firstname@example.com',
+			password: 'User5'
+			}
 };
+
+module.exports = fakeUser;

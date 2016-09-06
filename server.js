@@ -27,9 +27,9 @@ app.get('/', function (req, res) {
 	res.json({"message" :'Begin CheckPoint'});
 });
 
+app.use('/api', users);
 app.use('/api', documents);
 app.use('/api', roles);
-app.use('/api', users);
 
 app.listen(port, function onStart(err) {
   if (err) {

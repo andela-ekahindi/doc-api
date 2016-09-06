@@ -1,6 +1,6 @@
-var fakery = require('mongoose-fakery');
+// var fakery = require('mongoose-fakery');
 // var mongoose = require('mongoose');
-var Role = require('../../models/role');
+// var Role = require('../../models/role');
 
 var fakeRole = {
 	SuperUser: {title: 'SuperUser'},
