@@ -20,7 +20,7 @@ let AuthCtrl = {
 
         } else {
             return res.status(401).send({
-                success: false,
+                status: true,
                 message: "No token provided. Missing parameters"
             });
 

@@ -29,57 +29,67 @@
 // };
 
 var fakeDocument = {
-	
-	Doc1:{	ownerId: 1,
-			title:'Hi Doc1',
-			content:'From test Doc1',
-			public:true
-		},
-	Doc2:{	ownerId: 2,
-			title:'Hi Doc2',
-			content:'From test Doc2',
-			public:true
-		},
-	Doc3:{	ownerId: 1,
-			title:'Hi Doc3',
-			content:'From test Doc3',
-			public:true
-		},
-	Doc4:{	ownerId: 1,
-			title:'Hi Doc4',
-			content:'From test Doc4',
-			public:true
-		},
-	Doc5:{	ownerId: 1,
-			title:'Hi Doc5',
-			content:'From test Doc5',
-			public:true
-		},
-	Doc6:{	ownerId: 1,
-			title:'Hi Doc6',
-			content:'From test Doc6',
-			public:true
-		},
-	Doc7:{	ownerId: 1,
-			title:'Hi Doc7',
-			content:'From test Doc7',
-			public:true
-		},
-	Doc8:{	ownerId: 1,
-			title:'Hi Doc8',
-			content:'From test Doc8',
-			public:true
-		},
-	Doc9:{	ownerId: 1,
-			title:'Hi Doc9',
-			content:'From test Doc9',
-			public:true
-		},
-	Doc10:{	ownerId: 1,
-			title:'Hi Doc10',
-			content:'From test Doc10',
-			public:true
-		},
+
+    Doc1: {
+        ownerId: 1,
+        title: 'Hi Doc1',
+        content: 'From test Doc1',
+        public: true
+    },
+    Doc2: {
+        ownerId: 2,
+        title: 'Hi Doc2',
+        content: 'From test Doc2',
+        public: true
+    },
+    Doc3: {
+        ownerId: 1,
+        title: 'Hi Doc3',
+        content: 'From test Doc3',
+        public: true
+    },
+    Doc4: {
+        ownerId: 1,
+        title: 'Hi Doc4',
+        content: 'From test Doc4',
+        public: true
+    },
+    Doc5: {
+        ownerId: 1,
+        title: 'Hi Doc5',
+        content: 'From test Doc5',
+        public: true
+    },
+    Doc6: {
+        ownerId: 1,
+        title: 'Hi Doc6',
+        content: 'From test Doc6',
+        public: true
+    },
+    Doc7: {
+        ownerId: 1,
+        title: 'Hi Doc7',
+        content: 'From test Doc7',
+        public: true
+    },
+    Doc8: {
+        ownerId: 1,
+        title: 'Hi Doc8',
+        content: 'From test Doc8',
+        public: true
+    },
+    Doc9: {
+        ownerId: 1,
+        title: 'Hi Doc9',
+        content: 'From test Doc9',
+        public: true
+    },
+    Doc10: {
+        ownerId: 1,
+        title: 'Hi Doc10',
+        content: 'From test Doc10',
+        public: true
+    },
 
 };
 

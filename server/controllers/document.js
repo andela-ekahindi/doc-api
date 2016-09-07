@@ -42,27 +42,31 @@ var DocumentCtrl = {
         });
     },
     GetAllDocs: function(req, res) {
-        if(!req.params.limit){
+        if (!req.query.limit) {
             //Turn if statements to tenary operators... Like pronto
-            req.params.limit = 0;
+            req.query.limit = 0;
         }
-        if(!req.params.next){
+        if (!req.query.next) {
             //Turn if statements to tenary operators... Like pronto
-            req.params.next = 0;
+            req.query.next = 0;
         }
-        Document.find().sort("-createdAt").limit(Number(req.params.limit)).skip(Number(req.params.next)).exec(function(err, documents) {
-            if (err) {
-                return res.status(500).json({
-                    status: false,
-                    error: err
-                });
-            } else {
-                return res.status(200).json({
-                    status: true,
-                    document: documents
-                });
-            }
-        });
+        Document.find()
+            .sort("-createdAt")
+            .limit(Number(req.query.limit))
+            .skip(Number(req.query.next))
+            .exec(function(err, documents) {
+                if (err) {
+                    return res.status(500).json({
+                        status: false,
+                        error: err
+                    });
+                } else {
+                    return res.status(200).json({
+                        status: true,
+                        document: documents
+                    });
+                }
+            });
     },
     GetOneDoc: function(req, res) {
         Document.findById(req.params.id, function(err, doc) {
@@ -85,7 +89,7 @@ var DocumentCtrl = {
         });
     },
     UpdateOneDoc: function(req, res) {
-        Document.findById(req.params.id, function(err, doc) {
+        Document.findById({_id: req.params.id}, function(err, doc) {
             if (err) {
                 return res.status(500).json({
                     status: false,
@@ -99,11 +103,15 @@ var DocumentCtrl = {
                     doc.content = req.body.content;
                 }
                 doc.modifiedAt = Date.now();
-                doc.update(function(err) {
+                doc.save(function(err) {
                     if (err) {
-                        res.send(err);
+                        console.log(err)
+                        return res.status(500).json({
+                            status: false,
+                            error: err
+                        });
                     } else {
-                        res.send({
+                        return res.status(200).send({
                             status: true,
                             document: doc
                         });
@@ -113,7 +121,42 @@ var DocumentCtrl = {
 
         });
     },
-
+    FindByDateCreate: function(req, res) {
+        Document.find({
+            createdAt: req.params.date
+        }).exec(function(err, doc) {
+            if (err) {
+                return res.status(500).json({
+                    status: false,
+                    error: err
+                });
+            } else {
+                return res.status(200).json({
+                    status: true,
+                    document: doc
+                })
+            }
+        })
+    },
+    FindAllDocByUser: function(req, res) {
+        Document.find({
+            ownerId: req.params.user_id
+        })
+            .sort("-createdAt")
+            .exec(function(err, doc) {
+                if (err) {
+                    return res.status(500).json({
+                        status: false,
+                        error: err
+                    });
+                } else {
+                    return res.status(200).json({
+                        status: true,
+                        document: doc
+                    })
+                }
+            })
+    },
     DeleteOneDoc: function(req, res) {
         Document.remove({
             _id: req.params.id
@@ -124,7 +167,7 @@ var DocumentCtrl = {
                     error: err
                 });
             } else {
-                res.json({
+                return res.status(200).json({
                     status: true,
                     document: null
                 });

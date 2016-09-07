@@ -18,8 +18,6 @@ mongoose.Promise = global.Promise;
 mongoose.connect(config.db, function (err) {
 	if (err) {
 		console.log('Error in connecting to mongodb');
-	} else {
-		console.log('You okay. Successful connection');
 	}
 });
 

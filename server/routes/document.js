@@ -15,15 +15,16 @@ router.route('/documents')
 	.post(DocumentCtrl.CreateOneDoc)
 	.get(DocumentCtrl.GetAllDocs);
 
-router.route('/documents/:limit')
-	.get(DocumentCtrl.GetAllDocs);
+// router.route('/documents/:date')
+// 	.get(DocumentCtrl.GetAllDocs);
 
 router.route('/documents/:id')
 	.get(DocumentCtrl.GetOneDoc)
 	.put(DocumentCtrl.UpdateOneDoc)
 	.delete(DocumentCtrl.DeleteOneDoc);
 
-router.route('/documents/:limit/:next')
-	.get(DocumentCtrl.GetAllDocs);
+router.route('/:user_id/documents')
+	.get(DocumentCtrl.FindAllDocByUser);
+
 
 module.exports = router;

@@ -98,7 +98,7 @@ var UserCtrl = {
     },
     LoginUser: function(req, res) {
         User.findOne({
-            username: req.body.username
+            email: req.body.email
         }, function(err, user) {
             if (err) {
                 return res.status(400).json({
@@ -120,7 +120,7 @@ var UserCtrl = {
                     var token = jwt.sign(user, req.app.get("Secret"), {
                         expiresIn: "14d"
                     });
-                    return res.json({
+                    return res.status(200).json({
                         status: true,
                         message: "You are Login in",
                         token: token,
