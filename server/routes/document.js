@@ -1,6 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var AuthCtrl = require('../controllers/auth');
+var Authen = require('../controllers/middleware');
 var router = express.Router();
 var DocumentCtrl = require('../controllers/document');
 
@@ -9,7 +9,7 @@ var DocumentCtrl = require('../controllers/document');
 //     next(); // make sure we go to the next routes and don't stop here
 // }); 
 
-router.use(AuthCtrl.Auth); 
+router.use(Authen.Auth); 
 
 router.route('/documents')
 	.post(DocumentCtrl.CreateOneDoc)

@@ -28,6 +28,14 @@ var UserSchema = new Schema({
 	password:{
 		type: String,
 		required: true
+	},
+	login:{
+		type: Boolean,
+		default: false	
+	},
+	role:{
+		type: String, 
+        required: true
 	}
 });
 

@@ -3,20 +3,17 @@ var mongoose = require('mongoose');
 
 var router = express.Router();
 var RoleCtrl = require('../controllers/role');
-
-router.use(function(req, res, next) {
-    // do logging
-    next(); // make sure we go to the next routes and don't stop here
-}); 
+var Access = require('../controllers/middleware');
 
 
-router.route('/roles')
-	.post(RoleCtrl.CreateOneRole)
-	.get(RoleCtrl.GetAllRoles);
+router.use(Access.Auth); 
+router.route('/roles' )
+	.post(Access.AdminAccess, RoleCtrl.CreateOneRole)
+	.get(Access.AdminAccess, RoleCtrl.GetAllRoles);
 
 router.route('/roles/:id')
-	.get(RoleCtrl.GetOneRole)
-	.put(RoleCtrl.UpdateOneRole)
-	.delete(RoleCtrl.DeleteOneRole);
+	.get(Access.AdminAccess, RoleCtrl.GetOneRole)
+	.put(Access.AdminAccess, RoleCtrl.UpdateOneRole)
+	.delete(Access.AdminAccess, RoleCtrl.DeleteOneRole);
 
 module.exports = router;

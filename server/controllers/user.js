@@ -1,58 +1,89 @@
 var User = require("../models/user");
+var Role = require("../models/role");
 var jwt = require("jsonwebtoken");
 
 var UserCtrl = {
-    CreateOneUser: function(req, res) {
-        if (!req.body.username) {
-            return res.status(400).json({
-                status: false,
-                error: "username required"
-            });
-        }
-        if (!req.body.name.first) {
-            return res.status(400).json({
-                status: false,
-                error: "first name required"
-            });
-        }
-        if (!req.body.name.last) {
-            return res.status(400).json({
-                status: false,
-                error: "last name required"
-            });
-        }
-        if (!req.body.email) {
-            return res.status(400).json({
-                status: false,
-                error: "email required"
-            });
-        }
-        if (!req.body.password) {
-            return res.status(400).json({
-                status: false,
-                error: "password required"
-            });
-        }
-        var user = new User();
-        user.username = req.body.username;
-        user.name.first = req.body.name.first;
-        user.name.last = req.body.name.last;
-        user.email = req.body.email;
-        user.password = req.body.password;
-
-        user.save(function(err, user) {
-            if (err) {
+        CreateOneUser: function(req, res) {
+            if (!req.body.username) {
                 return res.status(400).json({
                     status: false,
-                    error: err
-                });
-            } else {
-                return res.status(201).json({
-                    status: true,
-                    user: user
+                    error: "username required"
                 });
             }
-        });
+            if (!req.body.name.first) {
+                return res.status(400).json({
+                    status: false,
+                    error: "first name required"
+                });
+            }
+            if (!req.body.name.last) {
+                return res.status(400).json({
+                    status: false,
+                    error: "last name required"
+                });
+            }
+            if (!req.body.email) {
+                return res.status(400).json({
+                    status: false,
+                    error: "email required"
+                });
+            }
+            if (!req.body.password) {
+                return res.status(400).json({
+                    status: false,
+                    error: "password required"
+                });
+            }
+            var user = new User();
+            user.username = req.body.username;
+            user.name.first = req.body.name.first;
+            user.name.last = req.body.name.last;
+            user.email = req.body.email;
+            user.password = req.body.password;
+
+            if (!req.body.role) {
+                Role.findOne({
+                    title: 'User'
+                }, function(err, role) {
+                    if (err) {
+                        return res.status(400).json({
+                            status: false,
+                            error: err
+                        });
+                    } else {
+                        user.role = role.title;
+                        user.save(function(err, user) {
+                            if (err) {
+                                return res.status(400).json({
+                                    status: false,
+                                    error: err
+                                });
+                            } else {
+                                return res.status(201).json({
+                                    status: true,
+                                    user: user
+                                });
+                            }
+                        });
+                    }
+                });
+            } else {
+                user.role = req.body.role;
+                user.save(function(err, user) {
+                    if (err) {
+                        return res.status(400).json({
+                            status: false,
+                            error: err
+                        });
+                    } else {
+                        return res.status(201).json({
+                            status: true,
+                            user: user
+                        });
+                    }
+                });
+            }
+
     },
     GetAllUsers: function(req, res) {
         User.find(function(err, users) {
@@ -120,20 +151,36 @@ var UserCtrl = {
                     var token = jwt.sign(user, req.app.get("Secret"), {
                         expiresIn: "14d"
                     });
-                    return res.status(200).json({
-                        status: true,
-                        message: "You are Login in",
-                        token: token,
-                        user: user
-                    });
-                }
+                    user.login = true
+                    user.save(function(err) {
+                        if (err) {
+                            return res.status(500).json({
+                                status: false,
+                                error: err
+                            });
+                        } else {
 
+                            return res.status(200).json({
+                                status: true,
+                                message: "You are Login in",
+                                token: token,
+                                user: user
+                            });
+                        }
+
+                    })
+
+                }
             }
+
         });
     },
-    LogoutUser: function (req, res) {
+    LogoutUser: function(req, res) {
         req.decoded = null;
-        return res.status(200).json({status: true, user: "Logged Out"});
+        return res.status(200).json({
+            status: true,
+            user: "Logged Out"
+        });
     }
 };
 

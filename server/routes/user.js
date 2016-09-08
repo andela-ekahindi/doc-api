@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 
 var router = express.Router();
 var UserCtrl = require('../controllers/user');
-var AuthCtrl = require('../controllers/auth');
+var Authentic = require('../controllers/middleware');
 
 router.route('/users/login')
 	.post(UserCtrl.LoginUser);
@@ -11,11 +11,7 @@ router.route('/users/login')
 router.route('/users')
 	.post(UserCtrl.CreateOneUser);
 
-//middleware to the protect the API routes
-//without we cant access the routes below
-
-
-router.use(AuthCtrl.Auth); 
+router.use(Authentic.Auth); 
 
 
 router.route('/users')
