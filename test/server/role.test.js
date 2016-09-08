@@ -4,7 +4,7 @@ var chai = require('chai');
 var expect = chai.expect;
 
 
-describe('Role', function() {
+describe('ROLE', function() {
     describe('Admins', function() {
         var token_admin;
         beforeEach(function(done) {

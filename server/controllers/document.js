@@ -1,4 +1,5 @@
-var Document = require("../models/document");
+"use strict"
+let Document = require("../models/document");
 
 var DocumentCtrl = {
     CreateOneDoc: function(req, res) {
@@ -105,7 +106,6 @@ var DocumentCtrl = {
                 doc.modifiedAt = Date.now();
                 doc.save(function(err) {
                     if (err) {
-                        console.log(err)
                         return res.status(500).json({
                             status: false,
                             error: err
@@ -134,9 +134,9 @@ var DocumentCtrl = {
                 return res.status(200).json({
                     status: true,
                     document: doc
-                })
+                });
             }
-        })
+        });
     },
     FindAllDocByUser: function(req, res) {
         Document.find({
@@ -153,9 +153,9 @@ var DocumentCtrl = {
                     return res.status(200).json({
                         status: true,
                         document: doc
-                    })
+                    });
                 }
-            })
+            });
     },
     DeleteOneDoc: function(req, res) {
         Document.remove({

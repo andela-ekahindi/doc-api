@@ -8,10 +8,12 @@ let MiddleWare = {
         if (token) {
             jwt.verify(token, config.secret, function(err, decoded) {
                 if (err) {
-                    return res.json({
+                    return res.status(500).json({
                         status: false,
+                        error: err
                         message: "Failed to authenticate token."
                     });
+
                 } else {
 
                     req.decoded = decoded;

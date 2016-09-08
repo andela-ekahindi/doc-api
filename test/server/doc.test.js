@@ -4,7 +4,7 @@ var expect = require('chai').expect;
 var mongoose = require("mongoose");
 
 
-describe('Document', function() {
+describe('DOCUMENT', function() {
     describe('Require Login', function() {
         describe('GET api/documents', function() {
             it('should fail before login', function(done) {
