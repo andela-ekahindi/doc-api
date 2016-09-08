@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/andela-ekahindi/doc-api#readme",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
     "chai": "^3.5.0",
     "eslint": "^3.4.0",
