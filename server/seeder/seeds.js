@@ -1,8 +1,11 @@
 var config = require('../../config/config.js');
+
 var mongodb = require('mongodb');
 var async = require('async');
 var FakeUsers = require('./data/users');
 var FakeRoles = require('./data/roles');
+
+var url = 'mongodb://localhost/test-docs';
 
 async.series([
     function(callback) {
@@ -43,11 +46,13 @@ async.series([
                         });
                     }
                     console.log("ADDED", result.insertedCount, "ROLES");
+        callback(); 
+                    
                 });
 
             }
         });
-        callback();
+
     }
 ], function(err) {
     if (err)
