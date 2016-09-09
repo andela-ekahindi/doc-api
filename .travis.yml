@@ -3,4 +3,3 @@ node_js:
   - "6.2.1"
 services: mongodb
 env: "MONGODB_VERSION=\"3.2.7\""
-# before_script: node ./seeder/seeds.js

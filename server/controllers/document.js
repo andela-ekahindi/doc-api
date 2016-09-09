@@ -113,23 +113,6 @@ var DocumentCtrl = {
 
         });
     },
-    FindByDateCreate: function(req, res) {
-        Document.find({
-            createdAt: req.params.date
-        }).exec(function(err, doc) {
-            if (err) {
-                return res.status(500).json({
-                    status: false,
-                    error: err
-                });
-            } else {
-                return res.status(200).json({
-                    status: true,
-                    document: doc
-                });
-            }
-        });
-    },
     FindAllDocByUser: function(req, res) {
         Document.find({
             ownerId: req.params.user_id

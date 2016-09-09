@@ -262,6 +262,39 @@ describe('DOCUMENT', function() {
                     });
             });
 
+            it('should not PUT to api/documents with invalid id', function(done) {
+                request
+                    .put('/api/documents/' + 'bogusThings')
+                    .set('x-access-token', token)
+                    .send({
+                        title: "New Things"
+                    })
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function(err, res) {
+                        //errors here
+                        expect(res.status).to.exist;
+                        expect(res.body).to.exist;
+                        expect(res.status).to.equal(500);
+                        expect(res.body).to.be.a('object');
+                        expect(res.body).to.include.keys('error', 'status');
+                        expect(res.body).to.have.property('error');
+                        expect(res.body).to.have.property('status');
+                        expect(res.body.status).to.be.false;
+                        // expect(res.body.document).to.be.a('object');
+                        // expect(res.body.document).to.include.keys('_id', 'ownerId', 'content', "title", "modifiedAt", "createdAt");
+                        // expect(res.body.document._id).to.be.a('mongo things');
+                        // expect(res.body.document.ownerId).to.be.a('mongo things');                        
+                        // expect(res.body.document.content).to.be.a('string');
+                        // expect(res.body.document.title).to.be.a('string');
+                        // expect(res.body.document.modifiedAt).to.be.a('date');
+                        // expect(res.body.document.createdAt).to.be.a('date');
+                        // expect(res.body.document.title).to.eql('New Things');
+                        done();
+                    });
+            });
+
+
         });
         describe('DELETE', function() {
             it('should DELETE using api/documents', function(done) {

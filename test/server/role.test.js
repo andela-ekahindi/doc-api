@@ -115,6 +115,49 @@ describe('ROLE', function() {
                         done();
                     });
             });
+                        it('should POST to api/roles', function(done) {
+                request
+                    .post('/api/roles/')
+                    .set('x-access-token', token)
+                    .send({
+                        title: "Tester",
+                    })
+                    .expect(200)
+                    .end(function(err, res) {
+                        expect(res.status).to.exist;
+                        expect(res.body).to.exist;
+                        expect(res.status).to.equal(500);
+                        expect(res.body).to.be.a('object');
+                        // expect(res.body).to.include.keys('document', 'status');
+                        // expect(res.body).to.have.property('document');
+                        // expect(res.body).to.have.property('status');
+                        // expect(res.body.status).to.be.true;
+                        // expect(res.body.document).to.be.a('array');
+
+
+                        done();
+                    });
+            });
+            it('should not POST to api/roles without a title', function(done) {
+                request
+                    .post('/api/roles/')
+                    .set('x-access-token', token)
+                    .send({})
+                    .expect(200)
+                    .end(function(err, res) {
+                        expect(res.status).to.exist;
+                        expect(res.body).to.exist;
+                        expect(res.status).to.equal(400);
+                        expect(res.body).to.be.a('object');
+                        // expect(res.body).to.include.keys('document', 'status');
+                        // expect(res.body).to.have.property('document');
+                        // expect(res.body).to.have.property('status');
+                        // expect(res.body.status).to.be.true;
+                        // expect(res.body.document).to.be.a('array');
+
+                        done();
+                    });
+            });
         });
         describe('READ', function() {
             it('should GET ALL Roles from api/roles', function(done) {
@@ -155,6 +198,25 @@ describe('ROLE', function() {
                         done();
                     });
             });
+            it('should not GET ONE Role from api/roles with an Invalid _id', function(done) {
+                request
+                    .get('/api/roles/' + 'Bogusthings')
+                    .set('x-access-token', token)
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function(err, res) {
+                        expect(res.status).to.exist;
+                        expect(res.body).to.exist;
+                        expect(res.status).to.equal(500);
+                        expect(res.body).to.be.a('object');
+                        // expect(res.body).to.include.keys('document', 'status');
+                        // expect(res.body).to.have.property('document');
+                        // expect(res.body).to.have.property('status');
+                        // expect(res.body.status).to.be.true;
+                        // expect(res.body.document).to.include.keys('_id', 'ownerId', 'content', "title", "modifiedAt", "createdAt");
+                        done();
+                    });
+            });
         });
         describe('UPDATE', function() {
             it('should PUT to api/roles', function(done) {
@@ -181,6 +243,50 @@ describe('ROLE', function() {
                     });
 
             });
+            it('should not PUT to api/roles without title', function(done) {
+                request
+                    .put('/api/roles/' + role_id)
+                    .set('x-access-token', token)
+                    .send({})
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function(err, res) {
+                        expect(res.status).to.exist;
+                        expect(res.body).to.exist;
+                        expect(res.status).to.equal(400);
+                        expect(res.body).to.be.a('object');
+                        // expect(res.body).to.include.keys('document', 'status');
+                        // expect(res.body).to.have.property('document');
+                        // expect(res.body).to.have.property('status');
+                        // expect(res.body.status).to.be.true;
+                        // expect(res.body.document).to.not.be.a('object');
+                        // expect(res.body.document).to.be.null;
+                        done();
+                    });
+
+            });
+            it('should not PUT to api/roles with Invalid _id', function(done) {
+                request
+                    .put('/api/roles/' + 'Bogusthings')
+                    .set('x-access-token', token)
+                    .send({})
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function(err, res) {
+                        expect(res.status).to.exist;
+                        expect(res.body).to.exist;
+                        expect(res.status).to.equal(500);
+                        expect(res.body).to.be.a('object');
+                        // expect(res.body).to.include.keys('document', 'status');
+                        // expect(res.body).to.have.property('document');
+                        // expect(res.body).to.have.property('status');
+                        // expect(res.body.status).to.be.true;
+                        // expect(res.body.document).to.not.be.a('object');
+                        // expect(res.body.document).to.be.null;
+                        done();
+                    });
+
+            });
 
         });
         describe('DELETE', function() {
@@ -194,6 +300,28 @@ describe('ROLE', function() {
                         expect(res.status).to.exist;
                         expect(res.body).to.exist;
                         expect(res.status).to.equal(200);
+                        expect(res.body).to.be.a('object');
+                        // expect(res.body).to.include.keys('document', 'status');
+                        // expect(res.body).to.have.property('document');
+                        // expect(res.body).to.have.property('status');
+                        // expect(res.body.status).to.be.true;
+                        // expect(res.body.document).to.not.be.a('object');
+                        // expect(res.body.document).to.be.null;
+                        done();
+                    });
+
+
+            });
+            it('should not DELETE using api/roles invalid _id', function(done) {
+                request
+                    .delete('/api/roles/' + 'Bogusthings')
+                    .set('x-access-token', token)
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function(err, res) {
+                        expect(res.status).to.exist;
+                        expect(res.body).to.exist;
+                        expect(res.status).to.equal(500);
                         expect(res.body).to.be.a('object');
                         // expect(res.body).to.include.keys('document', 'status');
                         // expect(res.body).to.have.property('document');
