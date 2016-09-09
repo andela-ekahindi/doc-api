@@ -4,14 +4,14 @@ var FakeUsers = require('./data/users');
 var FakeRoles = require('./data/roles');
 
 var MongoClient = mongodb.MongoClient;
-
+var users, roles;
 MongoClient.connect(config.db, function(err, docs) {
     if (err) {
         console.log("Something went wrong:", err);
     } else {
         console.log("+++++++++CLEARING COLECTIONS++++++++");
-        var users = docs.collection('users');
-        var roles = docs.collection('roles');
+        users = docs.collection('users');
+        roles = docs.collection('roles');
         console.log("---------USERS----------------------");
         users.remove();
         console.log("---------ROLES----------------------");
@@ -26,20 +26,21 @@ MongoClient.connect(config.db, function(err, docs) {
                     console.log("USERNAME:", user.username);
                     console.log("_ID:", user._id);
                 });
-                console.log("ADDED", result.insertedCount, "USERS");	
+                console.log("ADDED", result.insertedCount, "USERS");
             }
         });
         roles.insert(FakeRoles, function(err, result) {
             if (err) {
                 console.log("Something went wrong:", err)
             } else {
-        console.log("---------ROLES----------------------");
+                console.log("---------ROLES----------------------");
                 result.ops.forEach(function(role) {
                     console.log("ROLE TITLE:", role.title);
                     console.log("_ID:", role._id);
-                });	 	            }
-                console.log("ADDED", result.insertedCount, "ROLES");	
+                });
+            }
+            console.log("ADDED", result.insertedCount, "ROLES");
         });
         docs.close();
     }
-})
+});
