@@ -15,14 +15,6 @@ var DocumentCtrl = {
                 error: "Content required"
             });
         }
-
-
-        if (!req.decoded) {
-            return res.status(401).json({
-                status: false,
-                error: "Sign In Required"
-            });
-        }
         var doc = new Document();
         doc.title = req.body.title;
         doc.content = req.body.content;

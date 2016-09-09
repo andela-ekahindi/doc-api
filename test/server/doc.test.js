@@ -108,6 +108,49 @@ describe('DOCUMENT', function() {
                         done();
                     });
             });
+            it('should not POST to api/documents without a title', function(done) {
+                request
+                    .post('/api/documents/')
+                    .set('x-access-token', token)
+                    .send({
+                        content: "This is will return an error from the db"
+                    })
+                    .expect(200)
+                    .end(function(err, res) {
+                        expect(res.status).to.exist;
+                        expect(res.body).to.exist;
+                        expect(res.status).to.equal(400);
+                        expect(res.body).to.be.a('object');
+                        expect(res.body).to.include.keys('error', 'status');
+                        expect(res.body).to.have.property('error');
+                        expect(res.body).to.have.property('status');
+                        expect(res.body.status).to.be.false;
+                        expect(res.body.error).to.eql('Title required');
+                        done();
+                    });
+            });
+
+            it('should not POST to api/documents without a content', function(done) {
+                request
+                    .post('/api/documents/')
+                    .set('x-access-token', token)
+                    .send({
+                        title: "This is will return an error from the db"
+                    })
+                    .expect(200)
+                    .end(function(err, res) {
+                        expect(res.status).to.exist;
+                        expect(res.body).to.exist;
+                        expect(res.status).to.equal(400);
+                        expect(res.body).to.be.a('object');
+                        expect(res.body).to.include.keys('error', 'status');
+                        expect(res.body).to.have.property('error');
+                        expect(res.body).to.have.property('status');
+                        expect(res.body.status).to.be.false;
+                        expect(res.body.error).to.eql("Content required");
+                        done();
+                    });
+            });
 
         });
         describe('READ', function() {
