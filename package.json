@@ -8,7 +8,7 @@
   },
   "scripts": {
     "pretest": "node server/seeder/seeds.js",
-    "test": "./node_modules/mocha/bin/_mocha test/server/*.test.js",
+    "test": "istanbul cover ./node_modules/mocha/bin/_mocha test/server/*.test.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "start": "node server.js"
   },
   "repository": {
@@ -35,6 +35,9 @@
     "mongoose-fakery": "^0.1.7"
   },
   "devDependencies": {
+    "coveralls": "^2.11.12",
+    "istanbul": "^0.4.5",
+    "mocha-lcov-reporter": "^1.2.0",
     "supertest": "^2.0.0"
   },
   "keywords": []

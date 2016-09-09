@@ -21,9 +21,6 @@ mongoose.connect(config.db, function (err) {
 	}
 });
 
-app.get('/', function (req, res) {
-	res.json({"message" :'Begin CheckPoint'});
-});
 
 app.use('/api', users);
 app.use('/api', documents);
