@@ -1,5 +1,4 @@
-var fakeUser = {
-	User1: {username: 'User1',
+var fakeUser = [{username: 'User1',
 			name: {first: 'User1firstname',
 					last: 'User1lastname'
 				},
@@ -8,7 +7,7 @@ var fakeUser = {
 			login: false,
 			role: 'Admin'
 			},
-	User2: {username: 'User2',
+{username: 'User2',
 			name: {first: 'User2firstname',
 					last: 'User2lastname'
 				},
@@ -17,7 +16,7 @@ var fakeUser = {
 			login: false,
 			role: 'User'
 			},
-	User3: {username: 'User3',
+{username: 'User3',
 			name: {first: 'User3firstname',
 					last: 'User3lastname'
 				},
@@ -26,7 +25,7 @@ var fakeUser = {
 			login: false,
 			role: 'User'
 			},
-	User4: {username: 'User4',
+{username: 'User4',
 			name: {first: 'User4firstname',
 					last: 'User4lastname'
 				},
@@ -35,7 +34,7 @@ var fakeUser = {
 			login: false,
 			role: 'User'
 			},
-	User5: {username: 'User5',
+ {username: 'User5',
 			name: {first: 'User5firstname',
 					last: 'User5lastname'
 				},
@@ -44,6 +43,6 @@ var fakeUser = {
 			login: false,
 			role: 'Admin'
 			}
-};
+];
 
 module.exports = fakeUser;

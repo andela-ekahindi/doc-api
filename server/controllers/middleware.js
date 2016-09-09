@@ -10,7 +10,7 @@ let MiddleWare = {
                 if (err) {
                     return res.status(500).json({
                         status: false,
-                        error: err
+                        error: err,
                         message: "Failed to authenticate token."
                     });
 

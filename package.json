@@ -28,10 +28,10 @@
     "express": "^4.14.0",
     "jsonwebtoken": "^7.1.9",
     "mocha": "^3.0.2",
+    "mongodb": "^2.2.9",
     "mongoose": "^4.5.10",
     "mongoose-fakery": "^0.1.7",
-    "mongoose-seed": "^0.3.1",
-    "mongoose-seeder": "^1.2.1"
+
   },
   "devDependencies": {
     "supertest": "^2.0.0"

@@ -2,4 +2,4 @@ language: node_js
 node_js: 
   - "6.2.1"
 services: mongodb
-before_script: node ./server/seeder/seeds.js
+before_script: node ./seeder/seeds.js
