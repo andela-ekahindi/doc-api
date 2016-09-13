@@ -1,9 +1,9 @@
-var fakeRole = [{
-    title: 'SuperUser'
+const fakeRole = [{
+  title: "SuperUser",
 }, {
-    title: 'Admin'
+  title: "Admin",
 }, {
-    title: 'User'
+  title: "User",
 }];
 
 module.exports = fakeRole;

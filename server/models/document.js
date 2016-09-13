@@ -1,33 +1,34 @@
-let mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+const mongoose = require("mongoose");
 
-var DocumentSchema = new Schema({
-    ownerId: {
-        type: Schema.Types.ObjectId, 
-        ref: 'User',
-        required: true
-    },
-    title: {
-        type: String,
-        required: true
-    },
-    content: {
-        type: String,
-        required: true
-    },
-    public: {
-        type: Boolean,
-        required: true,
-        default: false
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
-    modifiedAt: {
-        type: Date,
-        default: Date.now
-    }
+const Schema = mongoose.Schema;
+
+const DocumentSchema = new Schema({
+  ownerId: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  title: {
+    type: String,
+    required: true,
+  },
+  content: {
+    type: String,
+    required: true,
+  },
+  public: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  modifiedAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 

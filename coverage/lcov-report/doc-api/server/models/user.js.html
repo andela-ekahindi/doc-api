@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">77.78% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>7/9</span>
+        <span class='fraction'>9/9</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,18 +30,18 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/2</span>
+        <span class='fraction'>2/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">77.78% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>7/9</span>
+        <span class='fraction'>9/9</span>
       </div>
     </div>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -93,16 +93,13 @@
 48
 49
 50
-51
-52</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+51</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -137,72 +134,72 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">28×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">var mongoose = require('mongoose');
-var bcrypt   = require('bcrypt-nodejs');
-var Schema = mongoose.Schema;
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* eslint func-names: "off" */
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt-nodejs");
 &nbsp;
-var UserSchema = new Schema({
-	username: {
-		type: String,
-		required: true,
-		unique : true,
-		dropDups: true
-	},
-	name:{
-		first:{
-			type: String,
-			required: true
-		},
-		last:{
-			type: String,
-			required: true
-		}
-	},
-	email:{
-		type: String,
-		required: true,
-		unique : true,
-		dropDups: true
-	},
-	password:{
-		type: String,
-		required: true
-	},
-	login:{
-		type: Boolean,
-		default: false	
-	},
-	role:{
-		type: String, 
-        required: true
-	}
+const Schema = mongoose.Schema;
+&nbsp;
+const UserSchema = new Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+    dropDups: true,
+  },
+  name: {
+    first: {
+      type: String,
+      required: true,
+    },
+    last: {
+      type: String,
+      required: true,
+    },
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    dropDups: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  role: {
+    type: String,
+    required: true,
+  },
 });
 &nbsp;
 // generating a hash
-UserSchema.methods.generateHash = <span class="fstat-no" title="function not covered" >function(password) {</span>
-<span class="cstat-no" title="statement not covered" >    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);</span>
+UserSchema.methods.generateHash = function (password) {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 &nbsp;
 // checking if password is valid
-UserSchema.methods.validPassword = <span class="fstat-no" title="function not covered" >function(password) {</span>
-<span class="cstat-no" title="statement not covered" >    return bcrypt.compareSync(password, this.local.password);</span>
+UserSchema.methods.validPassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
 };
 &nbsp;
-module.exports = mongoose.model('User', UserSchema);</pre></td></tr>
+module.exports = mongoose.model("User", UserSchema);
+&nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Sep 09 2016 17:45:01 GMT+0300 (EAT)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Sep 13 2016 17:28:47 GMT+0300 (EAT)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

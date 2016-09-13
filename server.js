@@ -1,36 +1,37 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+ /* eslint no-console: "off" */
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
-var config = require('./config/config.js');
-var documents = require('./server/routes/document');
-var roles = require('./server/routes/role');
-var users = require('./server/routes/user');
+const config = require("./config/config.js");
+const documents = require("./server/routes/document");
+const roles = require("./server/routes/role");
+const users = require("./server/routes/user");
 
-var app = express();
-app.set('Secret', config.secret); // secret variable
-app.use(bodyParser.urlencoded({extended: false}));
+const app = express();
+app.set("Secret", config.secret);
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
-var port = process.env.PORT || 5000;
+const port = process.env.PORT || 5000;
 mongoose.Promise = global.Promise;
-mongoose.connect(config.db, function (err) {
-	if (err) {
-		console.log('Error in connecting to mongodb');
-	}
+mongoose.connect(config.db, (err) => {
+  if (err) {
+    console.log("Error in connecting to mongodb");
+  }
 });
 
 
-app.use('/api', users);
-app.use('/api', documents);
-app.use('/api', roles);
+app.use("/api", users);
+app.use("/api", documents);
+app.use("/api", roles);
 
-app.listen(port, function onStart(err) {
+app.listen(port, onStart = (err) => {
   if (err) {
     console.log(err);
   }
-  console.info('==> 🌎 Listening on port %s. Open up http://127.0.0.1:%s/ ', port, port);
+  console.info("==> 🌎 Listening on port %s. Open up http://127.0.0.1:%s/ ", port, port);
 });
 
 module.exports = app;

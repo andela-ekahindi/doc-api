@@ -1,13 +1,14 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require("mongoose");
 
-var RoleSchema = new Schema({
-	title: {
-		type: String,
-		required: true,
-		unique : true,
-		dropDups: true
-	}
+const Schema = mongoose.Schema;
+
+const RoleSchema = new Schema({
+  title: {
+    type: String,
+    required: true,
+    unique: true,
+    dropDups: true,
+  },
 });
 
-module.exports = mongoose.model('Role', RoleSchema);
+module.exports = mongoose.model("Role", RoleSchema);

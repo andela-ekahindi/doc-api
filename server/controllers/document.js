@@ -1,154 +1,69 @@
-"use strict"
-let Document = require("../models/document");
+/* eslint no-underscore-dangle: "off" */
+/* eslint no-param-reassign: "off" */
+/* eslint consistent-return: "off" */
+/* eslint no-shadow: "off"*/
 
-var DocumentCtrl = {
-    CreateOneDoc: function(req, res) {
-        if (!req.body.title) {
-            return res.status(400).json({
-                status: false,
-                error: "Title required"
-            });
-        }
-        if (!req.body.content) {
-            return res.status(400).json({
-                status: false,
-                error: "Content required"
-            });
-        }
-        var doc = new Document();
-        doc.title = req.body.title;
-        doc.content = req.body.content;
-        doc.ownerId = req.decoded._doc._id;
+const Document = require("../models/document");
 
-        doc.save(function(err, doc) {
-            if (err) {
-                return res.status(500).json({
-                    status: false,
-                    error: err
-                });
-            } else {
-                return res.status(201).json({
-                    status: true,
-                    document: doc
-                });
-            }
-        });
-    },
-    GetAllDocs: function(req, res) {
-        if (!req.query.limit) {
-            //Turn if statements to tenary operators... Like pronto
-            req.query.limit = 0;
-        }
-        if (!req.query.next) {
-            //Turn if statements to tenary operators... Like pronto
-            req.query.next = 0;
-        }
-        Document.find()
+const DocumentCtrl = {
+  CreateOneDoc(req, res) {
+    if (!req.body.title) { return res.status(400).json({ status: false, error: "Title required" }); }
+    if (!req.body.content) { return res.status(400).json({ status: false, error: "Content required" }); }
+    const doc = new Document();
+    doc.title = req.body.title;
+    doc.content = req.body.content;
+    doc.ownerId = req.decoded._doc._id;
+
+    doc.save((err, document) => {
+      if (err) { return res.status(500).json({ status: false, error: err }); }
+      return res.status(201).json({ status: true, document });
+    });
+  },
+  GetAllDocs(req, res) {
+    const limit = req.query.limit || 0;
+    const next = req.query.next || 0;
+    Document.find()
             .sort("-createdAt")
-            .limit(Number(req.query.limit))
-            .skip(Number(req.query.next))
-            .exec(function(err, documents) {
-                if (err) {
-                    return res.status(500).json({
-                        status: false,
-                        error: err
-                    });
-                } else {
-                    return res.status(200).json({
-                        status: true,
-                        document: documents
-                    });
-                }
+            .limit(Number(limit))
+            .skip(Number(next))
+            .exec((err, documents) => {
+              if (err) { return res.status(500).json({ status: false, error: err }); }
+              return res.status(200).json({ status: true, documents });
             });
-    },
-    GetOneDoc: function(req, res) {
-        Document.findById(req.params.id, function(err, doc) {
-            if (err) {
-                return res.status(500).json({
-                    status: false,
-                    error: err
-                });
-            } else {
-                if (doc)
-                    return res.status(200).json({
-                        status: true,
-                        document: doc
-                    });
-                return res.status(404).json({
-                    status: true,
-                    document: doc
-                });
-            }
-        });
-    },
-    UpdateOneDoc: function(req, res) {
-        Document.findById({_id: req.params.id}, function(err, doc) {
-            if (err) {
-                return res.status(500).json({
-                    status: false,
-                    error: err
-                });
-            } else {
-                if (req.body.title) {
-                    doc.title = req.body.title;
-                }
-                if (req.body.content) {
-                    doc.content = req.body.content;
-                }
-                doc.modifiedAt = Date.now();
-                doc.save(function(err) {
-                    if (err) {
-                        return res.status(500).json({
-                            status: false,
-                            error: err
-                        });
-                    } else {
-                        return res.status(200).send({
-                            status: true,
-                            document: doc
-                        });
-                    }
-                });
-            }
-
-        });
-    },
-    FindAllDocByUser: function(req, res) {
-        Document.find({
-            ownerId: req.params.user_id
-        })
+  },
+  GetOneDoc(req, res) {
+    Document.findById(req.params.id, (err, doc) => {
+      if (err) { return res.status(500).json({ status: false, error: err }); }
+      if (doc) { return res.status(200).json({ status: true, document: doc }); }
+      return res.status(404).json({ status: true, document: doc });
+    });
+  },
+  UpdateOneDoc(req, res) {
+    Document.findById({ _id: req.params.id }, (err, doc) => {
+      if (err) { return res.status(500).json({ status: false, error: err }); }
+      if (req.body.title) { doc.title = req.body.title; }
+      if (req.body.content) { doc.content = req.body.content; }
+      doc.modifiedAt = Date.now();
+      doc.save((err) => {
+        if (err) { return res.status(500).json({ status: false, error: err }); }
+        return res.status(200).send({ status: true, document: doc });
+      });
+    });
+  },
+  FindAllDocByUser(req, res) {
+    Document.find({ ownerId: req.params.user_id })
             .sort("-createdAt")
-            .exec(function(err, doc) {
-                if (err) {
-                    return res.status(500).json({
-                        status: false,
-                        error: err
-                    });
-                } else {
-                    return res.status(200).json({
-                        status: true,
-                        document: doc
-                    });
-                }
+            .exec((err, doc) => {
+              if (err) { return res.status(500).json({ status: false, error: err }); }
+              return res.status(200).json({ status: true, document: doc });
             });
-    },
-    DeleteOneDoc: function(req, res) {
-        Document.remove({
-            _id: req.params.id
-        }, function(err) {
-            if (err) {
-                return res.status(500).json({
-                    status: false,
-                    error: err
-                });
-            } else {
-                return res.status(200).json({
-                    status: true,
-                    document: null
-                });
-            }
-        });
-    }
+  },
+  DeleteOneDoc(req, res) {
+    Document.remove({ _id: req.params.id }, (err) => {
+      if (err) { return res.status(500).json({ status: false, error: err }); }
+      return res.status(200).json({ status: true, document: null });
+    });
+  },
 };
 
 module.exports = DocumentCtrl;
