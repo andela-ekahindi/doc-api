@@ -6,12 +6,13 @@
 const Document = require("../models/document");
 
 const DocumentCtrl = {
-  CreateOneDoc(req, res) {
+  create(req, res) {
     if (!req.body.title) { return res.status(400).json({ status: false, error: "Title required" }); }
     if (!req.body.content) { return res.status(400).json({ status: false, error: "Content required" }); }
     const doc = new Document();
     doc.title = req.body.title;
     doc.content = req.body.content;
+    if (req.body.public) { doc.public = req.body.public; }
     doc.ownerId = req.decoded._doc._id;
 
     doc.save((err, document) => {
@@ -19,10 +20,10 @@ const DocumentCtrl = {
       return res.status(201).json({ status: true, document });
     });
   },
-  GetAllDocs(req, res) {
+  all(req, res) {
     const limit = req.query.limit || 0;
     const next = req.query.next || 0;
-    Document.find()
+    Document.find({ public: true })
             .sort("-createdAt")
             .limit(Number(limit))
             .skip(Number(next))
@@ -31,14 +32,14 @@ const DocumentCtrl = {
               return res.status(200).json({ status: true, documents });
             });
   },
-  GetOneDoc(req, res) {
+  get(req, res) {
     Document.findById(req.params.id, (err, doc) => {
       if (err) { return res.status(500).json({ status: false, error: err }); }
       if (doc) { return res.status(200).json({ status: true, document: doc }); }
       return res.status(404).json({ status: true, document: doc });
     });
   },
-  UpdateOneDoc(req, res) {
+  update(req, res) {
     Document.findById({ _id: req.params.id }, (err, doc) => {
       if (err) { return res.status(500).json({ status: false, error: err }); }
       if (req.body.title) { doc.title = req.body.title; }
@@ -50,7 +51,7 @@ const DocumentCtrl = {
       });
     });
   },
-  FindAllDocByUser(req, res) {
+  getByUser(req, res) {
     Document.find({ ownerId: req.params.user_id })
             .sort("-createdAt")
             .exec((err, doc) => {
@@ -58,7 +59,7 @@ const DocumentCtrl = {
               return res.status(200).json({ status: true, document: doc });
             });
   },
-  DeleteOneDoc(req, res) {
+  delete(req, res) {
     Document.remove({ _id: req.params.id }, (err) => {
       if (err) { return res.status(500).json({ status: false, error: err }); }
       return res.status(200).json({ status: true, document: null });

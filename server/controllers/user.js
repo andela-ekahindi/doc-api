@@ -57,7 +57,7 @@ const UserCtrl = {
       if (req.body.name.first) { user.name.first = req.body.name.first; }
       if (req.body.name.last) { user.name.last = req.body.name.last; }
       if (req.body.email) { user.email = req.body.email; }
-      if (req.body.password) { user.password = req.body.password; }
+      if (req.body.password) { user.password = user.generateHash(req.body.password); }
       user.save((err) => {
         if (err) { return res.status(500).json({ status: false, error: err }); }
         return res.status(200).send({ status: true, user });

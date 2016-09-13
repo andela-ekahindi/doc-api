@@ -3,22 +3,21 @@ const express = require("express");
 const Authen = require("../controllers/middleware");
 
 const router = express.Router();
-const DocumentCtrl = require("../controllers/document");
+const Documents = require("../controllers/document");
 
 
 router.use(Authen.Auth);
 
 router.route("/documents")
-  .post(DocumentCtrl.CreateOneDoc)
-  .get(DocumentCtrl.GetAllDocs);
+  .post(Documents.create)
+  .get(Documents.all);
 
 router.route("/documents/:id")
-  .get(DocumentCtrl.GetOneDoc)
-  .put(DocumentCtrl.UpdateOneDoc)
-  .delete(DocumentCtrl.DeleteOneDoc);
+  .get(Documents.get)
+  .put(Documents.update)
+  .delete(Documents.delete);
 
 router.route("/:user_id/documents")
-  .get(DocumentCtrl.FindAllDocByUser);
-
+  .get(Documents.getByUser);
 
 module.exports = router;
