@@ -244,87 +244,87 @@ describe("ROLE", () => {
       });
       it("should not PUT to api/roles without title", (done) => {
         request
-                    .put(`/api/roles/${roleId}`)
-                    .set("x-access-token", token)
-                    .send({})
-                    .expect("Content-Type", /json/)
-                    .expect(200)
-                    .end((err, res) => {
-                      expect(res.status).to.exist;
-                      expect(res.body).to.exist;
-                      expect(res.status).to.equal(400);
-                      expect(res.body).to.be.a("object");
+          .put(`/api/roles/${roleId}`)
+          .set("x-access-token", token)
+          .send({})
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .end((err, res) => {
+            expect(res.status).to.exist;
+            expect(res.body).to.exist;
+            expect(res.status).to.equal(400);
+            expect(res.body).to.be.a("object");
                         // expect(res.body).to.include.keys("document", "status");
                         // expect(res.body).to.have.property("document");
                         // expect(res.body).to.have.property("status");
                         // expect(res.body.status).to.be.true;
                         // expect(res.body.document).to.not.be.a("object");
                         // expect(res.body.document).to.be.null;
-                      done();
-                    });
+            done();
+          });
       });
       it("should not PUT to api/roles with Invalid _id", (done) => {
         request
-                    .put("/api/roles/Bogusthings")
-                    .set("x-access-token", token)
-                    .send({})
-                    .expect("Content-Type", /json/)
-                    .expect(200)
-                    .end((err, res) => {
-                      expect(res.status).to.exist;
-                      expect(res.body).to.exist;
-                      expect(res.status).to.equal(500);
-                      expect(res.body).to.be.a("object");
+          .put("/api/roles/Bogusthings")
+          .set("x-access-token", token)
+          .send({})
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .end((err, res) => {
+            expect(res.status).to.exist;
+            expect(res.body).to.exist;
+            expect(res.status).to.equal(500);
+            expect(res.body).to.be.a("object");
                         // expect(res.body).to.include.keys("document", "status");
                         // expect(res.body).to.have.property("document");
                         // expect(res.body).to.have.property("status");
                         // expect(res.body.status).to.be.true;
                         // expect(res.body.document).to.not.be.a("object");
                         // expect(res.body.document).to.be.null;
-                      done();
-                    });
+            done();
+          });
       });
     });
     describe("DELETE", () => {
       it("should DELETE using api/roles", (done) => {
         request
-                    .delete(`/api/roles/${roleId}`)
-                    .set("x-access-token", token)
-                    .expect("Content-Type", /json/)
-                    .expect(200)
-                    .end((err, res) => {
-                      expect(res.status).to.exist;
-                      expect(res.body).to.exist;
-                      expect(res.status).to.equal(200);
-                      expect(res.body).to.be.a("object");
+          .delete(`/api/roles/${roleId}`)
+          .set("x-access-token", token)
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .end((err, res) => {
+            expect(res.status).to.exist;
+            expect(res.body).to.exist;
+            expect(res.status).to.equal(200);
+            expect(res.body).to.be.a("object");
                         // expect(res.body).to.include.keys("document", "status");
                         // expect(res.body).to.have.property("document");
                         // expect(res.body).to.have.property("status");
                         // expect(res.body.status).to.be.true;
                         // expect(res.body.document).to.not.be.a("object");
                         // expect(res.body.document).to.be.null;
-                      done();
-                    });
+            done();
+          });
       });
       it("should not DELETE using api/roles invalid _id", (done) => {
         request
-                    .delete("/api/roles/Bogusthings")
-                    .set("x-access-token", token)
-                    .expect("Content-Type", /json/)
-                    .expect(200)
-                    .end((err, res) => {
-                      expect(res.status).to.exist;
-                      expect(res.body).to.exist;
-                      expect(res.status).to.equal(500);
-                      expect(res.body).to.be.a("object");
+          .delete("/api/roles/Bogusthings")
+          .set("x-access-token", token)
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .end((err, res) => {
+            expect(res.status).to.exist;
+            expect(res.body).to.exist;
+            expect(res.status).to.equal(500);
+            expect(res.body).to.be.a("object");
                         // expect(res.body).to.include.keys("document", "status");
                         // expect(res.body).to.have.property("document");
                         // expect(res.body).to.have.property("status");
                         // expect(res.body.status).to.be.true;
                         // expect(res.body.document).to.not.be.a("object");
                         // expect(res.body.document).to.be.null;
-                      done();
-                    });
+            done();
+          });
       });
     });
   });
