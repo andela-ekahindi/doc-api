@@ -8,7 +8,7 @@ const Role = require("../models/role");
 const jwt = require("jsonwebtoken");
 
 const UserCtrl = {
-  CreateOneUser(req, res) {
+  create(req, res) {
     if (!req.body.username) { return res.status(400).json({ status: false, error: "username required" }); }
     if (!req.body.name.first) { return res.status(400).json({ status: false, error: "first name required" }); }
     if (!req.body.name.last) { return res.status(400).json({ status: false, error: "last name required" }); }
@@ -38,19 +38,19 @@ const UserCtrl = {
       });
     }
   },
-  GetAllUsers(req, res) {
+  all(req, res) {
     User.find((err, users) => {
       if (err) { return res.status(400).json({ status: false, error: err }); }
       return res.status(200).json({ status: true, users });
     });
   },
-  GetOneUser(req, res) {
+  get(req, res) {
     User.findById(req.params.id, (err, user) => {
       if (err) { return res.status(400).json({ status: false, error: err }); }
       return res.status(200).json({ status: true, user });
     });
   },
-  UpdateOneUser(req, res) {
+  update(req, res) {
     User.findById({ _id: req.params.id }, (err, user) => {
       if (err) { return res.status(500).json({ status: false, error: err }); }
       if (req.body.username) { user.username = req.body.username; }
@@ -64,13 +64,13 @@ const UserCtrl = {
       });
     });
   },
-  DeleteOneUser(req, res) {
+  delete(req, res) {
     User.remove({ _id: req.params.id }, (err) => {
       if (err) { return res.status(400).json({ status: false, error: err }); }
       return res.status(200).json({ status: true, user: null });
     });
   },
-  LoginUser(req, res) {
+  login(req, res) {
     User.findOne({ email: req.body.email }, (err, user) => {
       if (err) { return res.status(400).json({ status: false, error: err }); }
       if (!user) { return res.status(401).json({ status: false, error: "User not Found" }); }

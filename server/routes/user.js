@@ -2,23 +2,23 @@
 const express = require("express");
 
 const router = express.Router();
-const UserCtrl = require("../controllers/user");
+const User = require("../controllers/user");
 const Authentic = require("../controllers/middleware");
 
 router.route("/users/login")
-  .post(UserCtrl.LoginUser);
+  .post(User.login);
 
 router.route("/users")
-  .post(UserCtrl.CreateOneUser);
+  .post(User.create);
 
 router.use(Authentic.Auth);
 
 router.route("/users")
-  .get(UserCtrl.GetAllUsers);
+  .get(User.all);
 
 router.route("/users/:id")
-  .get(UserCtrl.GetOneUser)
-  .delete(UserCtrl.DeleteOneUser)
-  .put(UserCtrl.UpdateOneUser);
+  .get(User.get)
+  .delete(User.delete)
+  .put(User.update);
 
 module.exports = router;

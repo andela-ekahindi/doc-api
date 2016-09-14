@@ -20,8 +20,8 @@ const MiddleWare = {
     }
   },
   AdminAccess(req, res, next) {
-    if (req.decoded._doc.role === "Admin") { return next(); }
-    return res.status(403).json({ status: false, message: "Unauthorized" });
+    if (req.decoded._doc.role === "User") { return res.status(403).json({ status: false, message: "Unauthorized" }); }
+    return next();
   },
 };
 
