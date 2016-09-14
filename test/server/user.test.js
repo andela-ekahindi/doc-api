@@ -252,7 +252,7 @@ describe("USER", () => {
             expect(res.body).to.have.property("user");
             expect(res.body).to.have.property("status");
             expect(res.body.status).to.be.true;
-            expect(res.body.document).to.include.keys("_id", "email", "name", "role", "username", "password");
+            expect(res.body.user).to.include.keys("_id", "email", "name", "role", "username", "password");
             done();
           });
       });
