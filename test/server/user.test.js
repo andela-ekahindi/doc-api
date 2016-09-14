@@ -10,7 +10,7 @@ describe("USER", () => {
   describe("CRUD USER Operations", () => {
     let token;
     let userId;
-    beforeEach((done) => {
+    before((done) => {
       request
                     .post("/api/users/login")
                     .send({

@@ -67,7 +67,7 @@ describe("DOCUMENT", () => {
   describe("CRUD Document Operations", () => {
     let token;
     let documentId;
-    beforeEach((done) => {
+    before((done) => {
       request
         .post("/api/users/login")
         .send({
@@ -245,7 +245,7 @@ describe("DOCUMENT", () => {
     });
     describe("UPDATE", () => {
       let putDocumentId;
-      beforeEach((done) => {
+      before((done) => {
         request
           .post("/api/documents/")
           .set("x-access-token", token)
@@ -349,7 +349,7 @@ describe("DOCUMENT", () => {
   });
 
   describe("Requirements functions", () => {
-    beforeEach((done) => {
+    before((done) => {
       request
         .post("/api/users/login")
         .send({
