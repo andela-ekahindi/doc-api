@@ -22,9 +22,9 @@ const RoleCtrl = {
     });
   },
   GetOneRole(req, res) {
-    Role.findById(req.params.id, (err, rol) => {
+    Role.findById(req.params.id, (err, role) => {
       if (err) { return res.status(500).json({ status: false, error: err }); }
-      return res.status(200).json({ status: true, rol });
+      return res.status(200).json({ status: true, role });
     });
   },
   UpdateOneRole(req, res) {

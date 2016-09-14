@@ -12,13 +12,10 @@ const expect = chai.expect;
 describe("ROLE", () => {
   describe("Admins", () => {
     let tokenAdmin;
-    beforeEach((done) => {
+    before((done) => {
       request
         .post("/api/users/login")
-        .send({
-          email: "User5firstname@example.com",
-          password: "User5",
-        })
+        .send({ email: "User5firstname@example.com", password: "User5" })
         .end((err, res) => {
           tokenAdmin = res.body.token;
           done();
@@ -47,7 +44,7 @@ describe("ROLE", () => {
   describe("None Admins", () => {
     let tokenUser;
 
-    beforeEach((done) => {
+    before((done) => {
       request
         .post("/api/users/login")
         .send({
@@ -82,7 +79,7 @@ describe("ROLE", () => {
   describe("CRUD Role Operations", () => {
     let token;
     let roleId;
-    beforeEach((done) => {
+    before((done) => {
       request
         .post("/api/users/login")
         .send({
@@ -117,7 +114,7 @@ describe("ROLE", () => {
             done();
           });
       });
-      it("should not POST duplicates to api/roles", (done) => {
+      it("should not POST duplicates to api/roles: should validates that a new role created has a unique title", (done) => {
         request
           .post("/api/roles/")
           .set("x-access-token", token)
@@ -148,17 +145,17 @@ describe("ROLE", () => {
             expect(res.body).to.exist;
             expect(res.status).to.equal(400);
             expect(res.body).to.be.a("object");
-            // expect(res.body).to.include.keys("error", "status");
-            // expect(res.body).to.have.property("error");
-            // expect(res.body).to.have.property("status");
+            expect(res.body).to.include.keys("error", "status");
+            expect(res.body).to.have.property("error");
+            expect(res.body).to.have.property("status");
             expect(res.body.status).to.be.false;
-            // expect(res.body.document).to.eql("Title required");
+            expect(res.body.error).to.eql("Title required");
             done();
           });
       });
     });
     describe("READ", () => {
-      it("should GET ALL Roles from api/roles", (done) => {
+      it("should GET ALL Roles from api/roles: should validates that all roles are returned when Roles.all is called", (done) => {
         request
           .get("/api/roles/")
           .set("x-access-token", token)
@@ -174,6 +171,8 @@ describe("ROLE", () => {
             expect(res.body).to.have.property("status");
             expect(res.body.status).to.be.true;
             expect(res.body.role).to.be.a("array");
+            expect(res.body.role[0].title).to.eql("SuperUser");
+            expect(res.body.role[1].title).to.eql("Admin");
             done();
           });
       });
@@ -188,12 +187,11 @@ describe("ROLE", () => {
             expect(res.body).to.exist;
             expect(res.status).to.equal(200);
             expect(res.body).to.be.a("object");
-                        // expect(res.body).to.include.keys("document", "status");
-                        // expect(res.body).to.have.property("document");
-                        // expect(res.body).to.have.property("status");
-                        // expect(res.body.status).to.be.true;
-                        // expect(res.body.document).to.include.keys("_id", "ownerId",
-                        // "content", "title", "modifiedAt", "createdAt");
+            expect(res.body).to.include.keys("role", "status");
+            expect(res.body).to.have.property("role");
+            expect(res.body).to.have.property("status");
+            expect(res.body.status).to.be.true;
+            expect(res.body.role).to.include.keys("_id", "title");
             done();
           });
       });
@@ -208,12 +206,10 @@ describe("ROLE", () => {
             expect(res.body).to.exist;
             expect(res.status).to.equal(500);
             expect(res.body).to.be.a("object");
-                        // expect(res.body).to.include.keys("document", "status");
-                        // expect(res.body).to.have.property("document");
-                        // expect(res.body).to.have.property("status");
-                        // expect(res.body.status).to.be.true;
-                        // expect(res.body.document).to.include.keys("_id",
-                        // "ownerId", "content", "title", "modifiedAt", "createdAt");
+            expect(res.body).to.include.keys("error", "status");
+            expect(res.body).to.have.property("error");
+            expect(res.body).to.have.property("status");
+            expect(res.body.status).to.be.false;
             done();
           });
       });
@@ -223,9 +219,7 @@ describe("ROLE", () => {
         request
           .put(`/api/roles/${roleId}`)
           .set("x-access-token", token)
-          .send({
-            title: "Testerer",
-          })
+          .send({ title: "Testerer" })
           .expect("Content-Type", /json/)
           .expect(200)
           .end((err, res) => {
@@ -233,12 +227,12 @@ describe("ROLE", () => {
             expect(res.body).to.exist;
             expect(res.status).to.equal(200);
             expect(res.body).to.be.a("object");
-                        // expect(res.body).to.include.keys("document", "status");
-                        // expect(res.body).to.have.property("document");
-                        // expect(res.body).to.have.property("status");
-                        // expect(res.body.status).to.be.true;
-                        // expect(res.body.document).to.not.be.a("object");
-                        // expect(res.body.document).to.be.null;
+            expect(res.body).to.include.keys("role", "status");
+            expect(res.body).to.have.property("role");
+            expect(res.body).to.have.property("status");
+            expect(res.body.status).to.be.true;
+            expect(res.body.role).to.be.a("object");
+            expect(res.body.role.title).to.eql("Testerer");
             done();
           });
       });
@@ -254,12 +248,10 @@ describe("ROLE", () => {
             expect(res.body).to.exist;
             expect(res.status).to.equal(400);
             expect(res.body).to.be.a("object");
-                        // expect(res.body).to.include.keys("document", "status");
-                        // expect(res.body).to.have.property("document");
-                        // expect(res.body).to.have.property("status");
-                        // expect(res.body.status).to.be.true;
-                        // expect(res.body.document).to.not.be.a("object");
-                        // expect(res.body.document).to.be.null;
+            expect(res.body).to.include.keys("error", "status");
+            expect(res.body).to.have.property("error");
+            expect(res.body).to.have.property("status");
+            expect(res.body.status).to.be.false;
             done();
           });
       });
@@ -275,12 +267,10 @@ describe("ROLE", () => {
             expect(res.body).to.exist;
             expect(res.status).to.equal(500);
             expect(res.body).to.be.a("object");
-                        // expect(res.body).to.include.keys("document", "status");
-                        // expect(res.body).to.have.property("document");
-                        // expect(res.body).to.have.property("status");
-                        // expect(res.body.status).to.be.true;
-                        // expect(res.body.document).to.not.be.a("object");
-                        // expect(res.body.document).to.be.null;
+            expect(res.body).to.include.keys("error", "status");
+            expect(res.body).to.have.property("error");
+            expect(res.body).to.have.property("status");
+            expect(res.body.status).to.be.false;
             done();
           });
       });
@@ -297,12 +287,11 @@ describe("ROLE", () => {
             expect(res.body).to.exist;
             expect(res.status).to.equal(200);
             expect(res.body).to.be.a("object");
-                        // expect(res.body).to.include.keys("document", "status");
-                        // expect(res.body).to.have.property("document");
-                        // expect(res.body).to.have.property("status");
-                        // expect(res.body.status).to.be.true;
-                        // expect(res.body.document).to.not.be.a("object");
-                        // expect(res.body.document).to.be.null;
+            expect(res.body).to.include.keys("role", "status");
+            expect(res.body).to.have.property("role");
+            expect(res.body).to.have.property("status");
+            expect(res.body.status).to.be.true;
+            expect(res.body.role).to.eql(null);
             done();
           });
       });
@@ -317,28 +306,13 @@ describe("ROLE", () => {
             expect(res.body).to.exist;
             expect(res.status).to.equal(500);
             expect(res.body).to.be.a("object");
-                        // expect(res.body).to.include.keys("document", "status");
-                        // expect(res.body).to.have.property("document");
-                        // expect(res.body).to.have.property("status");
-                        // expect(res.body.status).to.be.true;
-                        // expect(res.body.document).to.not.be.a("object");
-                        // expect(res.body.document).to.be.null;
+            expect(res.body).to.include.keys("error", "status");
+            expect(res.body).to.have.property("error");
+            expect(res.body).to.have.property("status");
+            expect(res.body.status).to.be.false;
             done();
           });
       });
     });
   });
-    // it("should validates that a new role created has a unique title", function (done) {
-
-    // });
-
-    // it("should validates that all roles are returned when Roles.all is called", function (done) {
-
-    // });
 });
-
-// describe("GET /", function() {
-// it(", function (done) {
-
-// });
-// });
