@@ -10,14 +10,13 @@ const jwt = require("jsonwebtoken");
 const UserCtrl = {
   create(req, res) {
     if (!req.body.username) { return res.status(400).json({ status: false, error: "username required" }); }
-    if (!req.body.name.first) { return res.status(400).json({ status: false, error: "first name required" }); }
-    if (!req.body.name.last) { return res.status(400).json({ status: false, error: "last name required" }); }
+    if (!req.body.first) { return res.status(400).json({ status: false, error: "first name required" }); }
+    if (!req.body.last) { return res.status(400).json({ status: false, error: "last name required" }); }
     if (!req.body.email) { return res.status(400).json({ status: false, error: "email required" }); }
     if (!req.body.password) { return res.status(400).json({ status: false, error: "password required" }); }
     const usr = new User();
     usr.username = req.body.username;
-    usr.name.first = req.body.name.first;
-    usr.name.last = req.body.name.last;
+    usr.name = { first: req.body.first, last: req.body.last };
     usr.email = req.body.email;
     usr.password = usr.generateHash(req.body.password);
 
@@ -53,9 +52,10 @@ const UserCtrl = {
   update(req, res) {
     User.findById({ _id: req.params.id }, (err, user) => {
       if (err) { return res.status(500).json({ status: false, error: err }); }
+
       if (req.body.username) { user.username = req.body.username; }
-      if (req.body.name.first) { user.name.first = req.body.name.first; }
-      if (req.body.name.last) { user.name.last = req.body.name.last; }
+      if (req.body.first) { user.name.first = req.body.first; }
+      if (req.body.last) { user.name.last = req.body.last; }
       if (req.body.email) { user.email = req.body.email; }
       if (req.body.password) { user.password = user.generateHash(req.body.password); }
       user.save((err) => {
