@@ -23,7 +23,7 @@ const DocumentCtrl = {
   },
   all(req, res) {
     const limit = req.query.limit || 0;
-    const next = req.query.next || 0;
+    const page = req.query.page || 0;
     let endDate;
     let startDate;
     if (req.query.date) {
@@ -42,7 +42,7 @@ const DocumentCtrl = {
                      })
               .sort("-createdAt")
               .limit(Number(limit))
-              .skip(Number(next))
+              .skip(Number(page) * Number(limit))
               .exec((err, documents) => {
                 if (err) { return res.status(500).json({ status: false, error: err }); }
                 return res.status(200).json({ status: true, documents });
@@ -55,7 +55,7 @@ const DocumentCtrl = {
       })
               .sort("-createdAt")
               .limit(Number(limit))
-              .skip(Number(next))
+              .skip(Number(Number(page) * Number(limit)))
               .exec((err, documents) => {
                 if (err) { return res.status(500).json({ status: false, error: err }); }
                 return res.status(200).json({ status: true, documents });

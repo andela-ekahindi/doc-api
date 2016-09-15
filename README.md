@@ -1,8 +1,12 @@
 [![Build Status](https://travis-ci.org/andela-ekahindi/doc-api.svg?branch=develop)](https://travis-ci.org/andela-ekahindi/doc-api)
 [![Coverage Status](https://coveralls.io/repos/github/andela-ekahindi/doc-api/badge.svg?branch=develop)](https://coveralls.io/github/andela-ekahindi/doc-api?branch=develop)
 # doc-api
-This is a document management API that allows users to manages documents, users and user roles. Each document has access rights and Admin roles can access all documents and none admins can only access public documents. Any role can publish a document and they define whether its public. The default is private. All Users have roles defined to them.
-This system was developed using ​mongoose​, an ODM for Node.
+This is a document management API that allows users of the API to manages documents, users and user roles. Each document has access rights and Admin roles can access all documents and none admins can only access public documents. Any role can publish a document and they define whether its public. The default is private. All Users have roles defined to them. All documents also have a role defined to them. The default role assigned to the each document is the creator's role.
+
+## Dependencies
+* Mongoose​
+* Node
+* Postman
 
 ## Installation
 
@@ -76,11 +80,11 @@ In the project root, run `npm start`.
 
   * ##### get documents by date
   `GET`
-  `http://127.0.0.1:3000/api/search?date=put_date`
+  `http://127.0.0.1:3000/api/documents?date=2016-`
 
   * #### paginate documents
   `GET`
-  `http://127.0.0.1:3000/api/documents?skip=2&limit=1`
+  `http://127.0.0.1:3000/api/documents?limit=1&page=2`
 
 * #### roles
 
@@ -123,5 +127,4 @@ Api endpoints were created using `express` router. To access them on a http clie
 
 Ensure that you have installed `mongodb` locally. Before you go ahead to run the tests or work with the api, run `mongod` on a seperate tab on your terminal. The configuration for connection to the db on mongo is defined under `server\config\index.js`. Each time tests are run or the app is run, the database is dropped and seeded.
 
-license MIT
-:) :) 😄
+license MIT 😄
