@@ -18,7 +18,7 @@ router.route("/documents/:id")
   .put(Documents.update)
   .delete(Documents.delete);
 
-router.route("/:user_id/documents")
+router.route("/users/:user_id/documents")
   .get(Documents.getByUser);
 
 router.get("/search", Documents.findByRole);

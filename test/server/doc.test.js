@@ -6,6 +6,7 @@ const app = require("../../server.js");
 const request = require("supertest")(app);
 const expect = require("chai").expect;
 
+
 describe("DOCUMENT", () => {
   describe("Require Login", () => {
     describe("GET api/documents", () => {
@@ -67,6 +68,7 @@ describe("DOCUMENT", () => {
   describe("CRUD Document Operations", () => {
     let token;
     let documentId;
+    let userId;
     before((done) => {
       request
         .post("/api/users/login")
@@ -76,6 +78,7 @@ describe("DOCUMENT", () => {
         })
         .end((err, res) => {
           token = res.body.token;
+          userId = res.body.user._id;
           done();
         });
     });
@@ -202,7 +205,48 @@ describe("DOCUMENT", () => {
             done();
           });
       });
-      it("should GET ALL Document api/documents", (done) => {
+      it("should GET ALL Documents by the user defined from api/users/:id/documents", (done) => {
+        request
+          .get(`/api/users/${userId}/documents/`)
+          .set("x-access-token", token)
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .end((err, res) => {
+            expect(res.status).to.exist;
+            expect(res.body).to.exist;
+            expect(res.status).to.equal(200);
+            expect(res.body).to.be.a("object");
+            expect(res.body).to.include.keys("document", "status");
+            expect(res.body).to.have.property("document");
+            expect(res.body).to.have.property("status");
+            expect(res.body.status).to.be.true;
+            expect(Array.isArray(res.body.document)).to.be.true;
+            expect(res.body.document[1]).to.include.keys("_id", "ownerId", "content", "title", "modifiedAt", "createdAt");
+            expect(res.body.document[1].ownerId).to.eql(res.body.document[0].ownerId);
+            done();
+          });
+      });
+      it("should GET ALL Documents by the role defined on them from api/documents?role=Admin", (done) => {
+        request
+          .get("/api/documents/?role=Admin")
+          .set("x-access-token", token)
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .end((err, res) => {
+            expect(res.status).to.exist;
+            expect(res.body).to.exist;
+            expect(res.status).to.equal(200);
+            expect(res.body).to.be.a("object");
+            expect(res.body).to.include.keys("documents", "status");
+            expect(res.body).to.have.property("documents");
+            expect(res.body).to.have.property("status");
+            expect(res.body.status).to.be.true;
+            expect(Array.isArray(res.body.documents)).to.be.true;
+            expect(res.body.documents[0]).to.include.keys("_id", "ownerId", "content", "title", "modifiedAt", "createdAt");
+            done();
+          });
+      });
+      it("should GET ALL Document api/documents : documents are returned in order of their published dates, starting from the most recent", (done) => {
         request
           .get("/api/documents/")
           .set("x-access-token", token)
@@ -218,6 +262,7 @@ describe("DOCUMENT", () => {
             expect(res.body).to.have.property("status");
             expect(res.body.status).to.be.true;
             expect(res.body.documents).to.be.a("array");
+            expect(res.body.documents[0].createdAt).to.be.above(res.body.documents[1].createdAt);
             done();
           });
       });
@@ -225,6 +270,28 @@ describe("DOCUMENT", () => {
         const limit = 2;
         request
           .get(`/api/documents/?limit=${limit}`)
+          .set("x-access-token", token)
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .end((err, res) => {
+            expect(res.status).to.exist;
+            expect(res.body).to.exist;
+            expect(res.status).to.equal(200);
+            expect(res.body).to.be.a("object");
+            expect(res.body).to.include.keys("documents", "status");
+            expect(res.body).to.have.property("documents");
+            expect(res.body).to.have.property("status");
+            expect(res.body.status).to.be.true;
+            expect(res.body.documents).to.be.a("array");
+            expect(res.body.documents).to.have.length.of.at.most(limit);
+            done();
+          });
+      });
+      it("should GET WITH LIMIT and allow for pagination api/documents/?limit=2&page=2 : limit above with an offset as well (pagination)", (done) => {
+        const limit = 1;
+        const page = 2;
+        request
+          .get(`/api/documents/?limit=${limit}&page=${page}`)
           .set("x-access-token", token)
           .expect("Content-Type", /json/)
           .expect(200)
@@ -385,16 +452,5 @@ describe("DOCUMENT", () => {
           done();
         });
     });
-        // it("should employs the limit above with an offset as well (pagination).
-        // So documents could be fetched in chunks e.g 1st 10 document, next 10 documents
-        // (skipping the 1st 10) and so on.", function (done) {
-
-        // });
-
-        // it("should validates that all documents are returned in order
-        // of their published dates, starting from the most recent
-        // when Documents.all is called", function(done) {
-
-        // });
   });
 });
