@@ -6,6 +6,7 @@ const app = require("../../server.js");
 const request = require("supertest")(app);
 const expect = require("chai").expect;
 const bcrypt = require("bcrypt-nodejs");
+const mongoose = require("mongoose");
 
 describe("USER", () => {
   describe("CRUD USER Operations", () => {
@@ -253,6 +254,7 @@ describe("USER", () => {
             expect(res.body).to.have.property("status");
             expect(res.body.status).to.be.true;
             expect(res.body.user).to.include.keys("_id", "email", "name", "role", "username", "password");
+            expect(mongoose.Types.ObjectId.isValid(res.body.user._id)).to.be.true;
             done();
           });
       });

@@ -12,6 +12,7 @@ const FakeRoles = require("./data/roles");
 
 let users;
 let roles;
+let documents;
 
 async.series([
 
@@ -24,10 +25,13 @@ async.series([
         console.log("+++++++++CLEARING COLECTIONS++++++++");
         users = docs.collection("users");
         roles = docs.collection("roles");
+        documents = docs.collection("documents");
         console.log("---------USERS----------------------");
         users.remove();
         console.log("---------ROLES----------------------");
         roles.remove();
+        console.log("---------ROLES----------------------");
+        documents.remove();
         console.log("+++++++++ADDING DATA++++++++++++++++");
         callback();
       }

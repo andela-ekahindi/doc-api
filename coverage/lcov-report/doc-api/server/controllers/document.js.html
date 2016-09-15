@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">79.59% </span>
+        <span class="strong">73.77% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>39/49</span>
+        <span class='fraction'>45/61</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">70% </span>
+        <span class="strong">63.89% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>21/30</span>
+        <span class='fraction'>23/36</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">83.33% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>5/6</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">88.89% </span>
+        <span class="strong">80.85% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>32/36</span>
+        <span class='fraction'>38/47</span>
       </div>
     </div>
   </div>
@@ -113,7 +113,31 @@
 68
 69
 70
-71</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -139,12 +163,36 @@
 <span class="cline-any cline-yes">3×</span>
 <span class="cline-any cline-yes">3×</span>
 <span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3×</span>
 <span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -208,14 +256,38 @@ const DocumentCtrl = {
   all(req, res) {
     const limit = req.query.limit || 0;
     const next = req.query.next || 0;
-    Document.find({ public: true })
-            .sort("-createdAt")
-            .limit(Number(limit))
-            .skip(Number(next))
-            .exec((err, documents) =&gt; {
-              <span class="missing-if-branch" title="if path not taken" >I</span>if (err) { <span class="cstat-no" title="statement not covered" >return res.status(500).json({ status: false, error: err }); </span>}
-              return res.status(200).json({ status: true, documents });
-            });
+    let endDate;
+    let startDate;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (req.query.date) {
+<span class="cstat-no" title="statement not covered" >      startDate = new Date(req.query.date);</span>
+<span class="cstat-no" title="statement not covered" >      endDate = new Date(startDate.getTime() + (24 * 60 * 60 * 1000));</span>
+    } else {
+      endDate = Date.now();
+      startDate = new Date("1970-1-1");
+    }
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (req.decoded._doc.role === "Users") {
+<span class="cstat-no" title="statement not covered" >      Document.find({ public: true,</span>
+                      createdAt: { $gte: startDate,
+                                   $lt: endDate,
+                                  },
+                     })
+              .sort("-createdAt")
+              .limit(Number(limit))
+              .skip(Number(next))
+              .exec((err, documents) =&gt; {
+<span class="cstat-no" title="statement not covered" >                if (err) { <span class="cstat-no" title="statement not covered" >return res.status(500).json({ status: false, error: err }); </span>}</span>
+<span class="cstat-no" title="statement not covered" >                return res.status(200).json({ status: true, documents });</span>
+              });
+    } else {
+      Document.find({ createdAt: { $gte: startDate, $lt: endDate } })
+              .sort("-createdAt")
+              .limit(Number(limit))
+              .skip(Number(next))
+              .exec((err, documents) =&gt; {
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (err) { <span class="cstat-no" title="statement not covered" >return res.status(500).json({ status: false, error: err }); </span>}
+                return res.status(200).json({ status: true, documents });
+              });
+    }
   },
   get(req, res) {
     Document.findById(req.params.id, (err, doc) =&gt; {
@@ -259,7 +331,7 @@ module.exports = DocumentCtrl;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Sep 14 2016 11:50:07 GMT+0300 (EAT)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Sep 15 2016 09:42:03 GMT+0300 (EAT)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

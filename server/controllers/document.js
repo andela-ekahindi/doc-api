@@ -23,14 +23,38 @@ const DocumentCtrl = {
   all(req, res) {
     const limit = req.query.limit || 0;
     const next = req.query.next || 0;
-    Document.find({ public: true })
-            .sort("-createdAt")
-            .limit(Number(limit))
-            .skip(Number(next))
-            .exec((err, documents) => {
-              if (err) { return res.status(500).json({ status: false, error: err }); }
-              return res.status(200).json({ status: true, documents });
-            });
+    let endDate;
+    let startDate;
+    if (req.query.date) {
+      startDate = new Date(req.query.date);
+      endDate = new Date(startDate.getTime() + (24 * 60 * 60 * 1000));
+    } else {
+      endDate = Date.now();
+      startDate = new Date("1970-1-1");
+    }
+    if (req.decoded._doc.role === "Users") {
+      Document.find({ public: true,
+                      createdAt: { $gte: startDate,
+                                   $lt: endDate,
+                                  },
+                     })
+              .sort("-createdAt")
+              .limit(Number(limit))
+              .skip(Number(next))
+              .exec((err, documents) => {
+                if (err) { return res.status(500).json({ status: false, error: err }); }
+                return res.status(200).json({ status: true, documents });
+              });
+    } else {
+      Document.find({ createdAt: { $gte: startDate, $lt: endDate } })
+              .sort("-createdAt")
+              .limit(Number(limit))
+              .skip(Number(next))
+              .exec((err, documents) => {
+                if (err) { return res.status(500).json({ status: false, error: err }); }
+                return res.status(200).json({ status: true, documents });
+              });
+    }
   },
   get(req, res) {
     Document.findById(req.params.id, (err, doc) => {
