@@ -127,4 +127,4 @@ Api endpoints were created using `express` router. To access them on a http clie
 
 Ensure that you have installed `mongodb` locally. Before you go ahead to run the tests or work with the api, run `mongod` on a seperate tab on your terminal. The configuration for connection to the db on mongo is defined under `server\config\index.js`. Each time tests are run or the app is run, the database is dropped and seeded.
 
-license MIT 😄
+license MIT 😄 😄

@@ -72,23 +72,37 @@ FN:10,(anonymous_1)
 FN:22,(anonymous_2)
 FNF:2
 FNH:2
+<<<<<<< HEAD
 FNDA:85,(anonymous_1)
+=======
+FNDA:81,(anonymous_1)
+>>>>>>> 3813973f5c1324382e1ac654f2f19dc7adffcb1c
 FNDA:13,(anonymous_2)
 DA:6,1
 DA:7,1
 DA:9,1
+<<<<<<< HEAD
 DA:11,85
 DA:12,85
 DA:13,84
 DA:14,84
 DA:15,84
 DA:16,84
+=======
+DA:11,81
+DA:12,81
+DA:13,80
+DA:14,80
+DA:15,80
+DA:16,80
+>>>>>>> 3813973f5c1324382e1ac654f2f19dc7adffcb1c
 DA:19,1
 DA:23,13
 DA:24,12
 DA:28,1
 LF:13
 LH:13
+<<<<<<< HEAD
 BRDA:11,1,0,85
 BRDA:11,1,1,85
 BRDA:11,1,2,85
@@ -96,6 +110,15 @@ BRDA:12,2,0,84
 BRDA:12,2,1,1
 BRDA:14,3,0,0
 BRDA:14,3,1,84
+=======
+BRDA:11,1,0,81
+BRDA:11,1,1,81
+BRDA:11,1,2,81
+BRDA:12,2,0,80
+BRDA:12,2,1,1
+BRDA:14,3,0,0
+BRDA:14,3,1,80
+>>>>>>> 3813973f5c1324382e1ac654f2f19dc7adffcb1c
 BRDA:23,4,0,1
 BRDA:23,4,1,12
 BRF:9
@@ -113,7 +136,11 @@ FN:100,(anonymous_7)
 FNF:7
 FNH:6
 FNDA:6,(anonymous_1)
+<<<<<<< HEAD
 FNDA:5,(anonymous_2)
+=======
+FNDA:4,(anonymous_2)
+>>>>>>> 3813973f5c1324382e1ac654f2f19dc7adffcb1c
 FNDA:1,(anonymous_3)
 FNDA:2,(anonymous_4)
 FNDA:1,(anonymous_5)
@@ -132,6 +159,7 @@ DA:17,4
 DA:19,4
 DA:20,4
 DA:21,4
+<<<<<<< HEAD
 DA:25,5
 DA:26,5
 DA:27,5
@@ -148,6 +176,24 @@ DA:48,0
 DA:51,5
 DA:60,5
 DA:61,5
+=======
+DA:25,4
+DA:26,4
+DA:27,4
+DA:28,4
+DA:29,4
+DA:30,0
+DA:31,0
+DA:33,4
+DA:34,4
+DA:36,4
+DA:37,0
+DA:47,0
+DA:48,0
+DA:51,4
+DA:60,4
+DA:61,4
+>>>>>>> 3813973f5c1324382e1ac654f2f19dc7adffcb1c
 DA:66,1
 DA:67,1
 DA:68,1
@@ -182,6 +228,7 @@ BRDA:17,4,0,0
 BRDA:17,4,1,4
 BRDA:20,5,0,0
 BRDA:20,5,1,4
+<<<<<<< HEAD
 BRDA:25,6,0,5
 BRDA:25,6,1,3
 BRDA:26,7,0,5
@@ -194,6 +241,20 @@ BRDA:47,10,0,0
 BRDA:47,10,1,0
 BRDA:60,11,0,0
 BRDA:60,11,1,5
+=======
+BRDA:25,6,0,4
+BRDA:25,6,1,2
+BRDA:26,7,0,4
+BRDA:26,7,1,3
+BRDA:29,8,0,0
+BRDA:29,8,1,4
+BRDA:36,9,0,0
+BRDA:36,9,1,4
+BRDA:47,10,0,0
+BRDA:47,10,1,0
+BRDA:60,11,0,0
+BRDA:60,11,1,4
+>>>>>>> 3813973f5c1324382e1ac654f2f19dc7adffcb1c
 BRDA:67,12,0,0
 BRDA:67,12,1,1
 BRDA:68,13,0,1
