@@ -141,6 +141,36 @@ describe("DOCUMENT", () => {
             done();
           });
       });
+      it("should POST for specific roles of users to api/documents", (done) => {
+        request
+          .post("/api/documents/")
+          .set("x-access-token", token)
+          .send({
+            title: "New Users Doc From Test",
+            content: "This is a Users doc with a Users role created by the tests",
+            public: true,
+            role: "Users",
+          })
+          .expect(200)
+          .end((err, res) => {
+            expect(res.status).to.exist;
+            expect(res.body).to.exist;
+            expect(res.status).to.equal(201);
+            expect(res.body).to.be.a("object");
+            expect(res.body).to.include.keys("document", "status");
+            expect(res.body).to.have.property("document");
+            expect(res.body).to.have.property("status");
+            expect(res.body.status).to.be.true;
+            expect(res.body.document).to.be.a("object");
+            expect(res.body.document).to.include.keys("_id", "ownerId", "content", "title", "modifiedAt", "createdAt", "public");
+            expect(res.body.document.content).to.be.a("string");
+            expect(res.body.document.title).to.be.a("string");
+            expect(res.body.document.title).to.eql("New Users Doc From Test");
+            expect(res.body.document.public).to.be.true;
+            expect(res.body.document.content).to.eql("This is a Users doc with a Users role created by the tests");
+            done();
+          });
+      });
       it("should not POST to api/documents without a title", (done) => {
         request
           .post("/api/documents/")
@@ -205,6 +235,25 @@ describe("DOCUMENT", () => {
             done();
           });
       });
+      it("should GET ONE Documents from with a non existent id_ api/documents", (done) => {
+        request
+          .get("/api/documents/57daf1ae48324f06fb4cafd6")
+          .set("x-access-token", token)
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .end((err, res) => {
+            expect(res.status).to.exist;
+            expect(res.body).to.exist;
+            expect(res.status).to.equal(404);
+            expect(res.body).to.be.a("object");
+            expect(res.body).to.include.keys("document", "status");
+            expect(res.body).to.have.property("document");
+            expect(res.body).to.have.property("status");
+            expect(res.body.status).to.be.true;
+            expect(res.body.document).to.be.null;
+            done();
+          });
+      });
       it("should GET ALL Documents by the user defined from api/users/:id/documents", (done) => {
         request
           .get(`/api/users/${userId}/documents/`)
@@ -228,7 +277,7 @@ describe("DOCUMENT", () => {
       });
       it("should GET ALL Documents by the role defined on them from api/documents?role=Admin", (done) => {
         request
-          .get("/api/documents/?role=Admin")
+          .get("/api/search/?role=Admin")
           .set("x-access-token", token)
           .expect("Content-Type", /json/)
           .expect(200)
@@ -237,12 +286,12 @@ describe("DOCUMENT", () => {
             expect(res.body).to.exist;
             expect(res.status).to.equal(200);
             expect(res.body).to.be.a("object");
-            expect(res.body).to.include.keys("documents", "status");
-            expect(res.body).to.have.property("documents");
+            expect(res.body).to.include.keys("document", "status");
+            expect(res.body).to.have.property("document");
             expect(res.body).to.have.property("status");
             expect(res.body.status).to.be.true;
-            expect(Array.isArray(res.body.documents)).to.be.true;
-            expect(res.body.documents[0]).to.include.keys("_id", "ownerId", "content", "title", "modifiedAt", "createdAt");
+            expect(Array.isArray(res.body.document)).to.be.true;
+            expect(res.body.document[0]).to.include.keys("_id", "ownerId", "content", "title", "modifiedAt", "createdAt");
             done();
           });
       });
@@ -327,7 +376,7 @@ describe("DOCUMENT", () => {
           });
       });
 
-      it("should PUT to api/documents", (done) => {
+      it("should PUT the title to api/documents", (done) => {
         request
           .put(`/api/documents/${putDocumentId}`)
           .set("x-access-token", token)
@@ -350,6 +399,32 @@ describe("DOCUMENT", () => {
             expect(res.body.document.content).to.be.a("string");
             expect(res.body.document.title).to.be.a("string");
             expect(res.body.document.title).to.eql("New Things");
+            done();
+          });
+      });
+      it("should PUT the content to api/documents", (done) => {
+        request
+          .put(`/api/documents/${putDocumentId}`)
+          .set("x-access-token", token)
+          .send({
+            content: "New Things",
+          })
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .end((err, res) => {
+            expect(res.status).to.exist;
+            expect(res.body).to.exist;
+            expect(res.status).to.equal(200);
+            expect(res.body).to.be.a("object");
+            expect(res.body).to.include.keys("document", "status");
+            expect(res.body).to.have.property("document");
+            expect(res.body).to.have.property("status");
+            expect(res.body.status).to.be.true;
+            expect(res.body.document).to.be.a("object");
+            expect(res.body.document).to.include.keys("_id", "ownerId", "content", "title", "modifiedAt", "createdAt");
+            expect(res.body.document.title).to.be.a("string");
+            expect(res.body.document.content).to.be.a("string");
+            expect(res.body.document.content).to.eql("New Things");
             done();
           });
       });
