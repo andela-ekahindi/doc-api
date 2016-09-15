@@ -14,6 +14,7 @@ const UserCtrl = {
     if (!req.body.last) { return res.status(400).json({ status: false, error: "last name required" }); }
     if (!req.body.email) { return res.status(400).json({ status: false, error: "email required" }); }
     if (!req.body.password) { return res.status(400).json({ status: false, error: "password required" }); }
+
     const usr = new User();
     usr.username = req.body.username;
     usr.name = { first: req.body.first, last: req.body.last };
@@ -83,6 +84,11 @@ const UserCtrl = {
         });
       }
     });
+  },
+  logout(req, res) {
+    delete req.decoded;
+    if (req.decoded) { return res.send(5900).json({ status: false, error: "You didnot logout" }); }
+    return res.send(200).json({ status: true, message: "Logged Out" });
   },
 };
 

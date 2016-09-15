@@ -14,6 +14,7 @@ const DocumentCtrl = {
     doc.content = req.body.content;
     if (req.body.public) { doc.public = req.body.public; }
     doc.ownerId = req.decoded._doc._id;
+    if (req.body.role) { doc.role = req.body.role; } else { doc.role = req.decoded._doc.role; }
 
     doc.save((err, document) => {
       if (err) { return res.status(500).json({ status: false, error: err }); }
@@ -34,6 +35,7 @@ const DocumentCtrl = {
     }
     if (req.decoded._doc.role === "Users") {
       Document.find({ public: true,
+                      role: "Users",
                       createdAt: { $gte: startDate,
                                    $lt: endDate,
                                   },
@@ -46,7 +48,11 @@ const DocumentCtrl = {
                 return res.status(200).json({ status: true, documents });
               });
     } else {
-      Document.find({ createdAt: { $gte: startDate, $lt: endDate } })
+      Document.find({
+        createdAt: { $gte: startDate,
+                $lt: endDate,
+              },
+      })
               .sort("-createdAt")
               .limit(Number(limit))
               .skip(Number(next))
@@ -77,6 +83,14 @@ const DocumentCtrl = {
   },
   getByUser(req, res) {
     Document.find({ ownerId: req.params.user_id })
+            .sort("-createdAt")
+            .exec((err, doc) => {
+              if (err) { return res.status(500).json({ status: false, error: err }); }
+              return res.status(200).json({ status: true, document: doc });
+            });
+  },
+  findByRole(req, res) {
+    Document.find({ role: req.query.role })
             .sort("-createdAt")
             .exec((err, doc) => {
               if (err) { return res.status(500).json({ status: false, error: err }); }

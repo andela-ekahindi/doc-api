@@ -221,7 +221,7 @@ describe("DOCUMENT", () => {
             done();
           });
       });
-      it("should GET WITH LIMIT Document api/documents/?limit=2", (done) => {
+      it("should GET WITH LIMIT Document api/documents/?limit=2 : limited by a specified number, when Documents.all is called with a query parameter limit.", (done) => {
         const limit = 2;
         request
           .get(`/api/documents/?limit=${limit}`)
@@ -385,12 +385,6 @@ describe("DOCUMENT", () => {
           done();
         });
     });
-
-        // it("should validates that all documents are returned, limited by a specified number,
-        // when Documents.all is called with a query parameter limit.", function (done) {
-
-        // });
-
         // it("should employs the limit above with an offset as well (pagination).
         // So documents could be fetched in chunks e.g 1st 10 document, next 10 documents
         // (skipping the 1st 10) and so on.", function (done) {

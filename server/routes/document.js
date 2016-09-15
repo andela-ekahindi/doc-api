@@ -12,6 +12,7 @@ router.route("/documents")
   .post(Documents.create)
   .get(Documents.all);
 
+
 router.route("/documents/:id")
   .get(Documents.get)
   .put(Documents.update)
@@ -19,5 +20,7 @@ router.route("/documents/:id")
 
 router.route("/:user_id/documents")
   .get(Documents.getByUser);
+
+router.get("/search", Documents.findByRole);
 
 module.exports = router;
