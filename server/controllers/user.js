@@ -87,8 +87,8 @@ const UserCtrl = {
   },
   logout(req, res) {
     delete req.decoded;
-    if (req.decoded) { return res.send(5900).json({ status: false, error: "You didnot logout" }); }
-    return res.send(200).json({ status: true, message: "Logged Out" });
+    if (req.decoded) { return res.status(500).json({ status: false, error: "You didnot logout" }); }
+    return res.status(200).json({ status: true, message: "Logged Out" });
   },
 };
 

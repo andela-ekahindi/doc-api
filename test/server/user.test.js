@@ -507,4 +507,36 @@ describe("USER", () => {
         });
     });
   });
+  describe("Logout", () => {
+    it("should allow for users to logout from the system /api/urers/logout", (done) => {
+      request
+        .post("/api/users/logout")
+        .send({})
+        .set("x-access-token", token)
+        .end((err, res) => {
+          expect(res.status).to.exist;
+          expect(res.body).to.exist;
+          expect(res.status).to.equal(200);
+          expect(res.body).to.be.a("object");
+          expect(res.body).to.include.keys("status", "message");
+          expect(res.body.status).to.be.true;
+          expect(res.body.message).to.eql("Logged Out");
+          done();
+        });
+    });
+    it("should not allow users to logout without having been logged in", (done) => {
+      request
+        .post("/api/users/login")
+        .send({})
+        .end((err, res) => {
+          expect(res.status).to.exist;
+          expect(res.body).to.exist;
+          expect(res.status).to.equal(401);
+          expect(res.body).to.be.a("object");
+          expect(res.body).to.include.keys("status", "error");
+          expect(res.body.status).to.be.false;
+          done();
+        });
+    });
+  });
 });
