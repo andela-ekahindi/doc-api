@@ -38,8 +38,8 @@ describe("Search", () => {
           expect(res.body.status).to.be.true;
           expect(Array.isArray(res.body.documents)).to.be.true;
           expect((res.body.documents).length).be.at.most(2);
-          expect(res.body.documents[0]).to.include.keys("_id", "ownerId", "content", "title", "modifiedAt", "createdAt");
-          expect(res.body.documents[0].public).to.eql(false);
+          expect(res.body.documents[1]).to.include.keys("_id", "ownerId", "content", "title", "modifiedAt", "createdAt");
+          expect(res.body.documents[1].public).to.eql(false);
           done();
         });
   });
