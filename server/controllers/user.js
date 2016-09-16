@@ -1,14 +1,14 @@
-const User = require("../models/user");
-const Role = require("../models/role");
-const jwt = require("jsonwebtoken");
+const User = require('../models/user');
+const Role = require('../models/role');
+const jwt = require('jsonwebtoken');
 
 const UserCtrl = {
   create(req, res) {
-    if (!req.body.username) { return res.status(400).json({ status: false, error: "username required" }); }
-    if (!req.body.first) { return res.status(400).json({ status: false, error: "first name required" }); }
-    if (!req.body.last) { return res.status(400).json({ status: false, error: "last name required" }); }
-    if (!req.body.email) { return res.status(400).json({ status: false, error: "email required" }); }
-    if (!req.body.password) { return res.status(400).json({ status: false, error: "password required" }); }
+    if (!req.body.username) { return res.status(400).json({ status: false, error: 'username required' }); }
+    if (!req.body.first) { return res.status(400).json({ status: false, error: 'first name required' }); }
+    if (!req.body.last) { return res.status(400).json({ status: false, error: 'last name required' }); }
+    if (!req.body.email) { return res.status(400).json({ status: false, error: 'email required' }); }
+    if (!req.body.password) { return res.status(400).json({ status: false, error: 'password required' }); }
 
     const usr = new User();
     usr.username = req.body.username;
@@ -17,7 +17,7 @@ const UserCtrl = {
     usr.password = usr.generateHash(req.body.password);
 
     if (!req.body.role) {
-      Role.findOne({ title: "User" }, (err, rol) => {
+      Role.findOne({ title: 'User' }, (err, rol) => {
         if (err) { return res.status(400).json({ status: false, error: err }); }
         usr.role = rol.title;
         usr.save((err, user) => {
@@ -49,7 +49,9 @@ const UserCtrl = {
     User.findById({ _id: req.params.id }, (err, user) => {
       if (err) { return res.status(500).json({ status: false, error: err }); }
 
-      if (req.body.username) { user.username = req.body.username; }
+      if (req.body.username) {
+        user.username = req.body.username;
+      }
       if (req.body.first) { user.name.first = req.body.first; }
       if (req.body.last) { user.name.last = req.body.last; }
       if (req.body.email) { user.email = req.body.email; }
@@ -69,21 +71,21 @@ const UserCtrl = {
   login(req, res) {
     User.findOne({ email: req.body.email }, (err, user) => {
       if (err) { return res.status(400).json({ status: false, error: err }); }
-      if (!user) { return res.status(401).json({ status: false, error: "User not Found" }); }
+      if (!user) { return res.status(401).json({ status: false, error: 'User not Found' }); }
       if (user) {
-        if (!user.validPassword(req.body.password)) { return res.status(401).json({ status: false, error: "Wrong password" }); }
-        const token = jwt.sign(user, req.app.get("Secret"), { expiresIn: "14d" });
+        if (!user.validPassword(req.body.password)) { return res.status(401).json({ status: false, error: 'Wrong password' }); }
+        const token = jwt.sign(user, req.app.get('Secret'), { expiresIn: '14d' });
         user.save((err) => {
           if (err) { return res.status(500).json({ status: false, error: err }); }
-          return res.status(200).json({ status: true, message: "You are Login in", token, user });
+          return res.status(200).json({ status: true, message: 'You are Login in', token, user });
         });
       }
     });
   },
   logout(req, res) {
     delete req.decoded;
-    if (req.decoded) { return res.status(500).json({ status: false, error: "You did not logout" }); }
-    return res.status(200).json({ status: true, message: "Logged Out" });
+    if (req.decoded) { return res.status(500).json({ status: false, error: 'You did not logout' }); }
+    return res.status(200).json({ status: true, message: 'Logged Out' });
   },
 };
 

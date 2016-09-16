@@ -1,6 +1,6 @@
 /* eslint func-names: "off" */
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt-nodejs");
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt-nodejs');
 
 const Schema = mongoose.Schema;
 
@@ -45,4 +45,4 @@ UserSchema.methods.validPassword = function (password) {
   return bcrypt.compareSync(password, this.password);
 };
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model('User', UserSchema);

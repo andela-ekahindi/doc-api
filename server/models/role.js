@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
@@ -11,4 +11,4 @@ const RoleSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("Role", RoleSchema);
+module.exports = mongoose.model('Role', RoleSchema);

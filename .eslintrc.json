@@ -16,13 +16,13 @@
             "error",
             "unix"
         ],
-        "quotes": [
-            "error",
-            "double"
-        ],
         "semi": [
             "error",
             "always"
+        ],
+        "quotes": [
+          "error",
+          "single"
         ],
         "no-underscore-dangle": "off",
         "no-param-reassign": "off",

@@ -1,13 +1,13 @@
 /* eslint no-console: "off" */
 /* eslint func-names: "off" */
 
-const config = require("../../config/config.js");
+const config = require('../../config/config.js');
 
-const mongodb = require("mongodb");
-const async = require("async");
-const FakeUsers = require("./data/users");
+const mongodb = require('mongodb');
+const async = require('async');
+const FakeUsers = require('./data/users');
 
-const FakeRoles = require("./data/roles");
+const FakeRoles = require('./data/roles');
 
 let users;
 let roles;
@@ -19,19 +19,19 @@ async.series([
     const MongoClient = mongodb.MongoClient;
     MongoClient.connect(config.db, (err, docs) => {
       if (err) {
-        console.log("Something went wrong:", err);
+        console.log('Something went wrong:', err);
       } else {
-        console.log("+++++++++CLEARING COLECTIONS++++++++");
-        users = docs.collection("users");
-        roles = docs.collection("roles");
-        documents = docs.collection("documents");
-        console.log("---------USERS----------------------");
+        console.log('+++++++++CLEARING COLECTIONS++++++++');
+        users = docs.collection('users');
+        roles = docs.collection('roles');
+        documents = docs.collection('documents');
+        console.log('---------USERS----------------------');
         users.remove();
-        console.log("---------ROLES----------------------");
+        console.log('---------ROLES----------------------');
         roles.remove();
-        console.log("---------ROLES----------------------");
+        console.log('---------ROLES----------------------');
         documents.remove();
-        console.log("+++++++++ADDING DATA++++++++++++++++");
+        console.log('+++++++++ADDING DATA++++++++++++++++');
         callback();
       }
     });
@@ -39,14 +39,14 @@ async.series([
   function (callback) {
     users.insert(FakeUsers, (err, result) => {
       if (err) {
-        console.log("Something went wrong:", err);
+        console.log('Something went wrong:', err);
       } else {
-        console.log("---------USERS----------------------");
+        console.log('---------USERS----------------------');
         result.ops.forEach((user) => {
-          console.log("USERNAME:", user.username);
-          console.log("_ID:", user._id);
+          console.log('USERNAME:', user.username);
+          console.log('_ID:', user._id);
         });
-        console.log("ADDED", result.insertedCount, "USERS");
+        console.log('ADDED', result.insertedCount, 'USERS');
         callback();
       }
     });
@@ -55,15 +55,15 @@ async.series([
   function (callback) {
     roles.insert(FakeRoles, (err, result) => {
       if (err) {
-        console.log("Something went wrong:", err);
+        console.log('Something went wrong:', err);
       } else {
-        console.log("---------ROLES----------------------");
+        console.log('---------ROLES----------------------');
         result.ops.forEach((role) => {
-          console.log("ROLE TITLE:", role.title);
-          console.log("_ID:", role._id);
+          console.log('ROLE TITLE:', role.title);
+          console.log('_ID:', role._id);
         });
       }
-      console.log("ADDED", result.insertedCount, "ROLES");
+      console.log('ADDED', result.insertedCount, 'ROLES');
       callback();
     });
   },

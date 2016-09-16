@@ -1,11 +1,11 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
 const DocumentSchema = new Schema({
   ownerId: {
     type: Schema.Types.ObjectId,
-    ref: "User",
+    ref: 'User',
     required: true,
   },
   title: {
@@ -21,19 +21,14 @@ const DocumentSchema = new Schema({
     required: true,
     default: false,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  modifiedAt: {
-    type: Date,
-    default: Date.now,
-  },
   role: {
     type: String,
     required: true,
   },
-});
+},
+  {
+    timestamps: { updatedAt: 'modifiedAt' },
+  });
 
 
-module.exports = mongoose.model("Document", DocumentSchema);
+module.exports = mongoose.model('Document', DocumentSchema);

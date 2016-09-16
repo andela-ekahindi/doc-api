@@ -1,8 +1,8 @@
-const Role = require("../models/role");
+const Role = require('../models/role');
 
 const RoleCtrl = {
   create(req, res) {
-    if (!req.body.title) { return res.status(400).json({ status: false, error: "Title required" }); }
+    if (!req.body.title) { return res.status(400).json({ status: false, error: 'Title required' }); }
     const rol = new Role();
     rol.title = req.body.title;
     rol.save((err, role) => {
