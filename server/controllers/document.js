@@ -1,8 +1,3 @@
-/* eslint no-underscore-dangle: "off" */
-/* eslint no-param-reassign: "off" */
-/* eslint consistent-return: "off" */
-/* eslint no-shadow: "off"*/
-
 const Document = require("../models/document");
 
 const DocumentCtrl = {

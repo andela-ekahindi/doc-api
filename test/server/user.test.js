@@ -1,6 +1,5 @@
 /* eslint no-undef: "off" */
 /* eslint no-unused-expressions: "off" */
-/* eslint no-underscore-dangle: "off" */
 
 const app = require("../../server.js");
 const request = require("supertest")(app);

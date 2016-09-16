@@ -1,4 +1,4 @@
 module.exports = {
-    'secret': 'codeninjaresdocmang',
-    'db': 'mongodb://localhost/docs'
+  secret: "codeninjaresdocmang",
+  db: "mongodb://localhost/docs",
 };

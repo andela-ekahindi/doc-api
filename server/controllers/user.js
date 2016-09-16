@@ -1,8 +1,3 @@
-/* eslint no-underscore-dangle: "off" */
-/* eslint no-param-reassign: "off" */
-/* eslint consistent-return: "off" */
-/* eslint no-shadow: "off"*/
-
 const User = require("../models/user");
 const Role = require("../models/role");
 const jwt = require("jsonwebtoken");
@@ -87,7 +82,7 @@ const UserCtrl = {
   },
   logout(req, res) {
     delete req.decoded;
-    if (req.decoded) { return res.status(500).json({ status: false, error: "You didnot logout" }); }
+    if (req.decoded) { return res.status(500).json({ status: false, error: "You did not logout" }); }
     return res.status(200).json({ status: true, message: "Logged Out" });
   },
 };

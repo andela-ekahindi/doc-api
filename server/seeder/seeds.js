@@ -1,5 +1,4 @@
 /* eslint no-console: "off" */
-/* eslint no-underscore-dangle: "off" */
 /* eslint func-names: "off" */
 
 const config = require("../../config/config.js");

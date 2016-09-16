@@ -1,8 +1,3 @@
-/* eslint no-underscore-dangle: "off" */
-/* eslint no-underscore-dangle: "off" */
-/* eslint no-param-reassign: "off" */
-/* eslint consistent-return: "off" */
-
 const jwt = require("jsonwebtoken");
 const config = require("../../config/config.js");
 
