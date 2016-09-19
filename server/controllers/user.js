@@ -118,7 +118,7 @@ const UserCtrl = {
       }
       if (user) {
         if (!user.validPassword(req.body.password)) {
-          return res.status(401).send({ status: false, error: 'Wrong password' });
+          return res.status(401).send({ error: 'Wrong password' });
         }
         const token = jwt.sign(user, req.app.get('Secret'),
         { expiresIn: '14d' }

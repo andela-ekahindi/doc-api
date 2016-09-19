@@ -37,51 +37,32 @@ const DocumentCtrl = {
     const limit = req.query.limit || 0;
     const page = req.query.page || 0;
     let endDate = Date.now();
-    let startDate;
+    let startDate = new Date('1970-1-1');
     const query = {};
-    startDate = new Date('1970-1-1');
     if (req.query.date) {
       startDate = new Date(req.query.date);
       endDate = new Date(startDate.getTime() + (24 * 60 * 60 * 1000));
     }
-
-    if (req.query.date) {
-      query.createdAt = {
-        $gte: startDate,
-        $lt: endDate,
-      };
-    }
+    query.createdAt = {
+      $gte: startDate,
+      $lt: endDate,
+    };
 
     if (req.decoded._doc.role === 'Users') {
       query.role = 'Users';
       query.public = true;
     }
 
-    if (req.decoded._doc.role === 'Users') {
-      Document.find(query)
-              .sort('-createdAt')
-              .limit(Number(limit))
-              .skip(Number(page) * Number(limit))
-              .exec((error, documents) => {
-                if (error) {
-                  return res.status(500).send(error);
-                }
-                return res.status(200).send(documents);
-              });
-    } else {
-      Document.find({
-        createdAt: { $gte: startDate,
-                $lt: endDate,
-              },
-      })
-              .sort('-createdAt')
-              .limit(Number(limit))
-              .skip(Number(Number(page) * Number(limit)))
-              .exec((err, documents) => {
-                if (err) { return res.status(500).send({ status: false, error: err }); }
-                return res.status(200).send(documents);
-              });
-    }
+    Document.find(query)
+            .sort('-createdAt')
+            .limit(Number(limit))
+            .skip(Number(page) * Number(limit))
+            .exec((error, documents) => {
+              if (error) {
+                return res.status(500).send(error);
+              }
+              return res.status(200).send(documents);
+            });
   },
   get(req, res) {
     Document.findById(req.params.id, (error, document) => {
