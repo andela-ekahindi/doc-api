@@ -120,7 +120,11 @@ const UserCtrl = {
         if (!user.validPassword(req.body.password)) {
           return res.status(401).send({ error: 'Wrong password' });
         }
-        const token = jwt.sign(user, req.app.get('Secret'),
+        const sign = {};
+        sign._id = user._id;
+        sign.email = user.email;
+        sign.role = user.role;
+        const token = jwt.sign(sign, req.app.get('Secret'),
         { expiresIn: '14d' }
       );
         user.save((error) => {

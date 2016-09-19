@@ -11,7 +11,6 @@ const MiddleWare = {
         if (err) {
           return res.status(500).send({ error: err });
         }
-
         req.decoded = decoded;
         return next();
       });
@@ -22,7 +21,7 @@ const MiddleWare = {
     }
   },
   AdminAccess(req, res, next) {
-    if (req.decoded._doc.role === 'Admin') { return next(); }
+    if (req.decoded.role === 'Admin') { return next(); }
     return res.status(403).send({ error: 'Unauthorized' });
   },
 };

@@ -18,13 +18,13 @@ const DocumentCtrl = {
       doc.public = req.body.public;
     }
 
-    doc.ownerId = req.decoded._doc._id;
+    doc.ownerId = req.decoded._id;
 
     if (req.body.role) {
       doc.role = req.body.role;
     }
 
-    doc.role = req.decoded._doc.role;
+    doc.role = req.decoded.role;
 
     doc.save((error, document) => {
       if (error) {
@@ -48,7 +48,7 @@ const DocumentCtrl = {
       $lt: endDate,
     };
 
-    if (req.decoded._doc.role === 'Users') {
+    if (req.decoded.role === 'Users') {
       query.role = 'Users';
       query.public = true;
     }
