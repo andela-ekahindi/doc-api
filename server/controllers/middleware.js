@@ -9,18 +9,16 @@ const MiddleWare = {
     if (token) {
       jwt.verify(token, config.secret, (err, decoded) => {
         if (err) {
-          return res.status(500).json({
-            status: false,
-            error: err,
-            message: 'Failed to authenticate token.',
-          });
+          return res.status(500).send({ error: err });
         }
 
         req.decoded = decoded;
         return next();
       });
     } else {
-      return res.status(401).send({ status: true, message: 'No token provided. Missing parameters' });
+      return res.status(401).send({
+        error: 'No token provided. Missing parameters',
+      });
     }
   },
   AdminAccess(req, res, next) {

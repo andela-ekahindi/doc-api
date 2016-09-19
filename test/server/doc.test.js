@@ -18,9 +18,8 @@ describe('DOCUMENT', () => {
             expect(res.body).to.exist;
             expect(res.status).to.equal(401);
             expect(res.body).to.be.a('object');
-            expect(res.body).to.have.property('message');
-            expect(res.body.status).to.be.true;// status
-            expect(res.body.message).to.eql('No token provided. Missing parameters');
+            expect(res.body).to.have.property('error');
+            expect(res.body.error).to.eql('No token provided. Missing parameters');
             done();
           });
       });
@@ -49,9 +48,7 @@ describe('DOCUMENT', () => {
             expect(res.status).to.exist;
             expect(res.body).to.exist;
             expect(res.status).to.equal(200);
-            expect(res.body).to.be.a('object');
-            expect(res.body).to.have.property('documents');
-            expect(res.body.status).to.be.true;
+            expect(res.body).to.be.a('array');
             done();
           });
       });
@@ -88,7 +85,6 @@ describe('DOCUMENT', () => {
             expect(res.status).to.exist;
             expect(res.body).to.exist;
             expect(res.status).to.equal(201);
-            // Restful API return json of on
             expect(res.body).to.be.a('object');
             expect(res.body).to.include.keys('_id', 'ownerId', 'content', 'title', 'modifiedAt', 'createdAt', 'public');
             expect(res.body.content).to.be.a('string');
@@ -101,11 +97,6 @@ describe('DOCUMENT', () => {
           });
       });
 
-      /*
-        /users/ [{…}, {…}]
-        /users/10 {name, phone, age}
-       }
-      */
       it('should POST public documents to api/documents', (done) => {
         request
           .post('/api/documents/')
@@ -203,10 +194,7 @@ describe('DOCUMENT', () => {
             expect(res.body).to.exist;
             expect(res.status).to.equal(200);
             expect(res.body).to.be.a('object');
-            expect(res.body).to.include.keys('document');
-            expect(res.body).to.have.property('document');
-            expect(res.body.status).to.be.true;
-            expect(res.body.document).to.include.keys('_id', 'ownerId', 'content', 'title', 'modifiedAt', 'createdAt');
+            expect(res.body).to.include.keys('_id', 'ownerId', 'content', 'title', 'modifiedAt', 'createdAt');
             done();
           });
       });
@@ -220,9 +208,7 @@ describe('DOCUMENT', () => {
             expect(res.body).to.exist;
             expect(res.status).to.equal(404);
             expect(res.body).to.be.a('object');
-            expect(res.body).to.have.property('document');
-            expect(res.body.status).to.be.true;
-            expect(res.body.document).to.be.null;
+            expect(res.body).to.be.empty;
             done();
           });
       });
@@ -235,11 +221,9 @@ describe('DOCUMENT', () => {
             expect(res.status).to.exist;
             expect(res.body).to.exist;
             expect(res.status).to.equal(200);
-            expect(res.body).to.be.a('object');
-            expect(res.body).to.have.property('document');
-            expect(Array.isArray(res.body.document)).to.be.true;
-            expect(res.body.document[1]).to.include.keys('_id', 'ownerId', 'content', 'title', 'modifiedAt', 'createdAt');
-            expect(res.body.document[1].ownerId).to.eql(res.body.document[0].ownerId);
+            expect(Array.isArray(res.body)).to.be.true;
+            expect(res.body[1]).to.include.keys('_id', 'ownerId', 'content', 'title', 'modifiedAt', 'createdAt');
+            expect(res.body[1].ownerId).to.eql(res.body[0].ownerId);
             done();
           });
       });
@@ -252,12 +236,8 @@ describe('DOCUMENT', () => {
             expect(res.status).to.exist;
             expect(res.body).to.exist;
             expect(res.status).to.equal(200);
-            expect(res.body).to.be.a('object');
-            expect(res.body).to.have.property('document');
-            expect(res.body).to.have.property('status');
-            expect(res.body.status).to.be.true;
-            expect(Array.isArray(res.body.document)).to.be.true;
-            expect(res.body.document[0]).to.include.keys('_id', 'ownerId', 'content', 'title', 'modifiedAt', 'createdAt');
+            expect(Array.isArray(res.body)).to.be.true;
+            expect(res.body[0]).to.include.keys('_id', 'ownerId', 'content', 'title', 'modifiedAt', 'createdAt');
             done();
           });
       });
@@ -271,12 +251,8 @@ describe('DOCUMENT', () => {
             expect(res.status).to.exist;
             expect(res.body).to.exist;
             expect(res.status).to.equal(200);
-            expect(res.body).to.be.a('object');
-            expect(res.body).to.have.property('documents');
-            expect(res.body).to.have.property('status');
-            expect(res.body.status).to.be.true;
-            expect(res.body.documents).to.be.a('array');
-            expect(res.body.documents[0].createdAt).to.be.above(res.body.documents[1].createdAt);
+            expect(res.body).to.be.a('array');
+            expect(res.body[0].createdAt).to.be.above(res.body[1].createdAt);
             done();
           });
       });
@@ -290,12 +266,8 @@ describe('DOCUMENT', () => {
             expect(res.status).to.exist;
             expect(res.body).to.exist;
             expect(res.status).to.equal(200);
-            expect(res.body).to.be.a('object');
-            expect(res.body).to.have.property('documents');
-            expect(res.body).to.have.property('status');
-            expect(res.body.status).to.be.true;
-            expect(res.body.documents).to.be.a('array');
-            expect(res.body.documents).to.have.length.of.at.most(limit);
+            expect(res.body).to.be.a('array');
+            expect(res.body).to.have.length.of.at.most(limit);
             done();
           });
       });
@@ -310,12 +282,8 @@ describe('DOCUMENT', () => {
             expect(res.status).to.exist;
             expect(res.body).to.exist;
             expect(res.status).to.equal(200);
-            expect(res.body).to.be.a('object');
-            expect(res.body).to.have.property('documents');
-            expect(res.body).to.have.property('status');
-            expect(res.body.status).to.be.true;
-            expect(res.body.documents).to.be.a('array');
-            expect(res.body.documents).to.have.length.of.at.most(limit);
+            expect(res.body).to.be.a('array');
+            expect(res.body).to.have.length.of.at.most(limit);
             done();
           });
       });
@@ -349,15 +317,10 @@ describe('DOCUMENT', () => {
             expect(res.body).to.exist;
             expect(res.status).to.equal(200);
             expect(res.body).to.be.a('object');
-            expect(res.body).to.include.keys('document', 'status');
-            expect(res.body).to.have.property('document');
-            expect(res.body).to.have.property('status');
-            expect(res.body.status).to.be.true;
-            expect(res.body.document).to.be.a('object');
-            expect(res.body.document).to.include.keys('_id', 'ownerId', 'content', 'title', 'modifiedAt', 'createdAt');
-            expect(res.body.document.content).to.be.a('string');
-            expect(res.body.document.title).to.be.a('string');
-            expect(res.body.document.title).to.eql('New Things');
+            expect(res.body).to.include.keys('_id', 'ownerId', 'content', 'title', 'modifiedAt', 'createdAt');
+            expect(res.body.content).to.be.a('string');
+            expect(res.body.title).to.be.a('string');
+            expect(res.body.title).to.eql('New Things');
             done();
           });
       });
@@ -374,15 +337,10 @@ describe('DOCUMENT', () => {
             expect(res.body).to.exist;
             expect(res.status).to.equal(200);
             expect(res.body).to.be.a('object');
-            expect(res.body).to.include.keys('document', 'status');
-            expect(res.body).to.have.property('document');
-            expect(res.body).to.have.property('status');
-            expect(res.body.status).to.be.true;
-            expect(res.body.document).to.be.a('object');
-            expect(res.body.document).to.include.keys('_id', 'ownerId', 'content', 'title', 'modifiedAt', 'createdAt');
-            expect(res.body.document.title).to.be.a('string');
-            expect(res.body.document.content).to.be.a('string');
-            expect(res.body.document.content).to.eql('New Things');
+            expect(res.body).to.include.keys('_id', 'ownerId', 'content', 'title', 'modifiedAt', 'createdAt');
+            expect(res.body.title).to.be.a('string');
+            expect(res.body.content).to.be.a('string');
+            expect(res.body.content).to.eql('New Things');
             done();
           });
       });
@@ -398,12 +356,9 @@ describe('DOCUMENT', () => {
           .end((err, res) => {
             expect(res.status).to.exist;
             expect(res.body).to.exist;
-            expect(res.status).to.equal(500); //
+            expect(res.status).to.equal(500);
             expect(res.body).to.be.a('object');
-            expect(res.body).to.include.keys('error', 'status');
-            expect(res.body).to.have.property('error');
-            expect(res.body).to.have.property('status');
-            expect(res.body.status).to.be.false;
+            expect(res.body).to.include.keys('kind', 'message', 'name', 'path');
             done();
           });
       });
@@ -416,14 +371,8 @@ describe('DOCUMENT', () => {
           .end((err, res) => {
             expect(res.status).to.exist;
             expect(res.body).to.exist;
-            expect(res.status).to.equal(200); // {} return that error
+            expect(res.status).to.equal(200);
             expect(res.body).to.be.a('object');
-            expect(res.body).to.include.keys('document', 'status');
-            expect(res.body).to.have.property('document');
-            expect(res.body).to.have.property('status');
-            expect(res.body.status).to.be.true;
-            expect(res.body.document).to.not.be.a('object');
-            expect(res.body.document).to.be.null;
             done();
           });
       });
@@ -436,9 +385,7 @@ describe('DOCUMENT', () => {
             expect(res.body).to.exist;
             expect(res.status).to.equal(500);
             expect(res.body).to.be.a('object');
-            expect(res.body).to.have.property('error');
-            expect(res.body).to.have.property('status');
-            expect(res.body.status).to.be.false;
+            expect(res.body).to.have.property('kind');
             done();
           });
       });

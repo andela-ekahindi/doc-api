@@ -22,7 +22,7 @@ describe('Search', () => {
   });
   it('documents can be ordered by date and searched by limit and by role', (done) => {
     request
-        .get('/api/documents/?date=2016-09-16&limit=2')
+        .get('/api/documents/?date=2016-09-19&limit=2')
         .set('x-access-token', token)
         .expect('Content-Type', /json/)
         .expect(200)
@@ -30,14 +30,10 @@ describe('Search', () => {
           expect(res.status).to.exist;
           expect(res.body).to.exist;
           expect(res.status).to.equal(200);
-          expect(res.body).to.be.a('object');
-          expect(res.body).to.have.property('documents');
-          expect(res.body).to.have.property('status');
-          expect(res.body.status).to.be.true;
-          expect(Array.isArray(res.body.documents)).to.be.true;
-          expect((res.body.documents).length).be.at.most(2);
-          expect(res.body.documents[1]).to.include.keys('_id', 'ownerId', 'content', 'title', 'modifiedAt', 'createdAt');
-          expect(res.body.documents[1].public).to.eql(false);
+          expect(res.body).to.be.a('array');
+          expect((res.body).length).be.at.most(2);
+          expect(res.body[1]).to.include.keys('_id', 'ownerId', 'content', 'title', 'modifiedAt', 'createdAt');
+          expect(res.body[1].public).to.eql(false);
           done();
         });
   });
@@ -50,10 +46,8 @@ describe('Search', () => {
         .end((err, res) => {
           expect(res.status).to.exist;
           expect(res.body).to.exist;
-          expect(res.status).to.equal(500);
-          expect(res.body).to.be.a('object');
-          expect(res.body).to.have.property('error');
-          expect(res.body).to.have.property('status');
+          expect(res.status).to.equal(500); expect(res.body).to.be.a('object');
+          expect(res.body).to.have.keys('name', 'message', 'kind', 'path', 'value');
           done();
         });
   });
@@ -68,14 +62,10 @@ describe('Search', () => {
           expect(res.status).to.exist;
           expect(res.body).to.exist;
           expect(res.status).to.equal(200);
-          expect(res.body).to.be.a('object');
-          expect(res.body).to.have.property('documents');
-          expect(res.body).to.have.property('status');
-          expect(res.body.status).to.be.true;
-          expect(Array.isArray(res.body.documents)).to.be.true;
-          expect((res.body.documents).length).be.at.most(2);
-          expect(res.body.documents[1]).to.include.keys('_id', 'ownerId', 'content', 'title', 'modifiedAt', 'createdAt');
-          expect(res.body.documents[1].createdAt).to.be.below(res.body.documents[0].createdAt);
+          expect(res.body).to.be.a('array');
+          expect((res.body).length).be.at.most(2);
+          expect(res.body[1]).to.include.keys('_id', 'ownerId', 'content', 'title', 'modifiedAt', 'createdAt');
+          expect(res.body[1].createdAt).to.be.below(res.body[0].createdAt);
           done();
         });
   });
