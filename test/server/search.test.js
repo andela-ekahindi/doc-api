@@ -22,7 +22,7 @@ describe('Search', () => {
   });
   it('documents can be ordered by date and searched by limit and by role', (done) => {
     request
-        .get('/api/documents/?date=2016-09-19&limit=2')
+        .get('/api/documents/?date=2016-09-20&limit=2')
         .set('x-access-token', token)
         .expect('Content-Type', /json/)
         .expect(200)
