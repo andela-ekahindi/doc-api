@@ -1,0 +1,45 @@
+{
+  "name": "doc-api",
+  "version": "1.0.0",
+  "description": "This is a document api",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "pretest": "node server/seeder/seeds.js",
+    "test": "istanbul cover ./node_modules/mocha/bin/_mocha test/server/*.test.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andela-ekahindi/doc-api.git"
+  },
+  "author": "Esther Dama Kahindi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andela-ekahindi/doc-api/issues"
+  },
+  "homepage": "https://github.com/andela-ekahindi/doc-api#readme",
+  "dependencies": {
+    "async": "^2.0.1",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "jsonwebtoken": "^7.1.9",
+    "mocha": "^3.0.2",
+    "mongodb": "^2.2.9",
+    "chai": "^3.5.0",
+    "supertest": "^2.0.0",
+    "mongoose": "^4.5.10"
+  },
+  "devDependencies": {
+    "eslint": "^3.5.0",
+    "eslint-config-airbnb-base": "^7.1.0",
+    "eslint-plugin-import": "^1.14.0",
+    "coveralls": "^2.11.12",
+    "istanbul": "^0.4.5",
+    "mocha-lcov-reporter": "^1.2.0"
+  },
+  "keywords": []
+}

@@ -1,0 +1,32 @@
+{
+    "env": {
+        "es6": true,
+        "node": true
+    },
+    "extends": "airbnb-base",
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    "rules": {
+        "indent": [
+            "error",
+            2
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "quotes": [
+          "error",
+          "single"
+        ],
+        "no-underscore-dangle": "off",
+        "no-param-reassign": "off",
+        "no-shadow": "off",
+        "consistent-return": "off"
+    }
+}
