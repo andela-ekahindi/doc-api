@@ -1,4 +1,5 @@
  /* eslint no-console: "off" */
+/* eslint no-undef: "off" */
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');

@@ -32,8 +32,9 @@ describe('Search', () => {
           expect(res.status).to.equal(200);
           expect(res.body).to.be.a('array');
           expect((res.body).length).be.at.most(2);
-          expect(res.body[1]).to.include.keys('_id', 'ownerId', 'content', 'title', 'modifiedAt', 'createdAt');
-          expect(res.body[1].public).to.eql(false);
+          expect((res.body).length).be.eql(0);
+          // expect(res.body[1]).to.include.keys('_id', 'ownerId', 'content', 'title', 'modifiedAt', 'createdAt');
+          // expect(res.body[1].public).to.eql(false);
           done();
         });
   });
