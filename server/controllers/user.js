@@ -42,7 +42,14 @@ const UserCtrl = {
           if (error) {
             return res.status(400).send(error);
           }
-          return res.status(201).send(user);
+          const sign = {};
+          sign._id = user._id;
+          sign.email = user.email;
+          sign.role = user.role;
+          const token = jwt.sign(sign, req.app.get('Secret'),
+            { expiresIn: '14d' }
+          );
+          return res.status(201).send({ user, token });
         });
       });
     } else {
@@ -51,7 +58,14 @@ const UserCtrl = {
         if (error) {
           return res.status(400).send(error);
         }
-        return res.status(201).send(user);
+        const sign = {};
+        sign._id = user._id;
+        sign.email = user.email;
+        sign.role = user.role;
+        const token = jwt.sign(sign, req.app.get('Secret'),
+          { expiresIn: '14d' }
+        );
+        return res.status(201).send({ user, token });
       });
     }
   },
